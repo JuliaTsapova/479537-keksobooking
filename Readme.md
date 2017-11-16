@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Юлия Цапова](https://up.htmlacademy.ru/javascript/11/user/479537).
-* Наставник: `Неизвестно`.
+* Наставник: [Олег Петров](https://up.htmlacademy.ru/javascript/11/user/42390).
 
 ---
 
