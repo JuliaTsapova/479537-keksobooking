@@ -2,13 +2,13 @@
 var COUNT = 8;
 var offerParams = {
   TITLE: ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'],
-  ADDRESS: ["{{location.x}}, {{location.y}}"],
+  ADDRESS: ['{{location.x}}, {{location.y}}'],
   TYPE: ['flat', 'house', 'bungalo'],
   CHECKIN: ['12:00', '13:00', '14:00'],
   CHECKOUT: ['12:00', '13:00', '14:00'],
   FEATURES: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner']
 };
-//.querySelector('.map__card')
+
 var mapPins = document.querySelector('.map__pins');
 var AdvertTemplate = document.querySelector('#advert-template').content;
 
@@ -39,9 +39,9 @@ var renderAdvert = function (data) {
 
   var button = advert.querySelector('button.map__pin');
   button.style.removeProperty('left');
-  button.style.setProperty('left',data.location.x + 'px');
+  button.style.setProperty('left', data.location.x + 'px');
   button.style.removeProperty('top');
-  button.style.setProperty('top',data.location.y + 'px');
+  button.style.setProperty('top', data.location.y + 'px');
 
   button.querySelector('img').src = data.author.avatar;
 
@@ -101,15 +101,14 @@ var createFragment = function (arr) {
     fragment.appendChild(renderAdvert(arr[i]));
   }
 
-  console.log(fragment);
   return fragment;
 };
 
-var elems = getAdvertsArray(COUNT);
-mapPins.appendChild(createFragment(elems));
+var elements = getAdvertsArray(COUNT);
+mapPins.appendChild(createFragment(elements));
 
-var fe = elems.shift();
+var firstElement = elements.shift();
 
-var insertedElement = document.querySelector('.map').insertBefore(renderAdvert(fe), document.querySelector('.map__filters-container'));
+document.querySelector('.map').insertBefore(renderAdvert(firstElement), document.querySelector('.map__filters-container'));
 
 document.querySelector('.map').classList.remove('map--faded');
