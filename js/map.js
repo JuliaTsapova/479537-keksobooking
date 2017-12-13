@@ -30,10 +30,10 @@ var advertParams = {
   }
 };
 
-var typeMap = new Map ();
-typeMap.set(offerParams.TYPE[0], "Квартира");
-typeMap.set(offerParams.TYPE[1], "Дом");
-typeMap.set(offerParams.TYPE[2], "Бунгало");
+var typeMap = new Map();
+typeMap.set(offerParams.TYPE[0], 'Квартира');
+typeMap.set(offerParams.TYPE[1], 'Дом');
+typeMap.set(offerParams.TYPE[2], 'Бунгало');
 
 var mapPins = document.querySelector('.map__pins');
 var map = document.querySelector('.map');
