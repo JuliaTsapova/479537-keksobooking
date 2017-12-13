@@ -30,6 +30,11 @@ var advertParams = {
   }
 };
 
+var typeMap = new Map ();
+typeMap.set(offerParams.TYPE[0], "Квартира");
+typeMap.set(offerParams.TYPE[1], "Дом");
+typeMap.set(offerParams.TYPE[2], "Бунгало");
+
 var mapPins = document.querySelector('.map__pins');
 var map = document.querySelector('.map');
 var filterContainer = document.querySelector('.map__filters-container');
@@ -40,18 +45,16 @@ var getRandom = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
-var createLi = function (features, i, offer) {
+var createLi = function (feature) {
   var li = document.createElement('LI');
   li.classList.add('feature');
-  li.classList.add('feature--' + offer.features[i]);
-  features.appendChild(li);
+  li.classList.add('feature--' + feature);
+  return li;
 };
 
 var renderPin = function (pinData) {
   var pin = pinTemplate.cloneNode(true);
-  pin.style.removeProperty('left');
   pin.style.setProperty('left', pinData.location.x + 'px');
-  pin.style.removeProperty('top');
   pin.style.setProperty('top', pinData.location.y + 'px');
   pin.querySelector('img').src = pinData.author.avatar;
   return pin;
@@ -61,13 +64,15 @@ var renderCard = function (cardData) {
   var card = cardTemplate.cloneNode(true);
   card.querySelector('.popup__avatar').src = cardData.author.avatar;
   card.querySelector('h3').innerText = cardData.offer.title;
-  card.querySelector('.popup__price').innerText = cardData.offer.price + ' &#x20bd; /ночь';
+  card.querySelector('.popup__price').innerText = cardData.offer.price + ' \t\u20BD /ночь';
   card.querySelector('h4').innerText = cardData.offer.type;
   card.querySelector('.rooms-and-guests').innerText = cardData.offer.rooms + ' комнат для ' + cardData.offer.guests + ' гостей';
   card.querySelector('.checkin-and-checkout').innerText = 'Заезд после ' + cardData.offer.checkin + ' , выезд до ' + cardData.offer.checkout;
+  card.querySelector('.popup__description').innerText = cardData.offer.description;
+  card.querySelector('.popup__address').innerText = cardData.offer.address;
   var features = card.querySelector('.popup__features');
   for (var i = 0; i < cardData.offer.features.length; i++) {
-    createLi(features, i, cardData.offer);
+    features.appendChild(createLi(cardData.offer.features[i]));
   }
   return card;
 };
@@ -101,7 +106,7 @@ var getAdvert = function (x) {
       title: offerParams.TITLE[x],
       address: locationX + ', ' + locationY,
       price: getRandom(advertParams.PRICE.MIN, advertParams.PRICE.MAX),
-      type: offerParams.TYPE[getRandom(0, offerParams.TYPE.length)],
+      type: typeMap.get(offerParams.TYPE[getRandom(0, offerParams.TYPE.length)]),
       rooms: getRandom(advertParams.ROOMS.MIN, advertParams.ROOMS.MAX),
       guests: getRandom(advertParams.GUESTS.MIN, advertParams.GUESTS.MAX),
       checkin: offerParams.CHECKIN[getRandom(0, offerParams.CHECKIN.length)],
