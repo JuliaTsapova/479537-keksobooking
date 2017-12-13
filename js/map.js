@@ -31,9 +31,9 @@ var AdvertParams = {
 };
 
 var typeTranslation = {
-flat: 'Квартира',
-house: 'Дом',
-bungalo: 'Бунгало'
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalo: 'Бунгало'
 };
 
 var mapPins = document.querySelector('.map__pins');
