@@ -3,7 +3,7 @@ var ADS_COUNT = 8;
 var pinTranslateX = 20;
 var pinTranslateY = 40;
 
-var offerParams = {
+var OfferParams = {
   TITLE: ['Большая уютная квартира', 'Маленькая неуютная квартира', 'Огромный прекрасный дворец', 'Маленький ужасный дворец', 'Красивый гостевой домик', 'Некрасивый негостеприимный домик', 'Уютное бунгало далеко от моря', 'Неуютное бунгало по колено в воде'],
   TYPE: ['flat', 'house', 'bungalo'],
   CHECKIN: ['12:00', '13:00', '14:00'],
@@ -11,7 +11,7 @@ var offerParams = {
   FEATURES: ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner']
 };
 
-var advertParams = {
+var AdvertParams = {
   PRICE: {
     MIN: 1000,
     MAX: 1000000
@@ -26,14 +26,15 @@ var advertParams = {
   },
   FEATURES: {
     MIN: 1,
-    MAX: offerParams.FEATURES.length + 1
+    MAX: OfferParams.FEATURES.length + 1
   }
 };
 
-var typeMap = new Map();
-typeMap.set(offerParams.TYPE[0], 'Квартира');
-typeMap.set(offerParams.TYPE[1], 'Дом');
-typeMap.set(offerParams.TYPE[2], 'Бунгало');
+var typeTranslation = {
+flat: 'Квартира',
+house: 'Дом',
+bungalo: 'Бунгало'
+};
 
 var mapPins = document.querySelector('.map__pins');
 var map = document.querySelector('.map');
@@ -103,15 +104,15 @@ var getAdvert = function (x) {
       avatar: getAvatar(x)
     },
     offer: {
-      title: offerParams.TITLE[x],
+      title: OfferParams.TITLE[x],
       address: locationX + ', ' + locationY,
-      price: getRandom(advertParams.PRICE.MIN, advertParams.PRICE.MAX),
-      type: typeMap.get(offerParams.TYPE[getRandom(0, offerParams.TYPE.length)]),
-      rooms: getRandom(advertParams.ROOMS.MIN, advertParams.ROOMS.MAX),
-      guests: getRandom(advertParams.GUESTS.MIN, advertParams.GUESTS.MAX),
-      checkin: offerParams.CHECKIN[getRandom(0, offerParams.CHECKIN.length)],
-      checkout: offerParams.CHECKOUT[getRandom(0, offerParams.CHECKOUT.length)],
-      features: getRandomArray(offerParams.FEATURES, getRandom(advertParams.FEATURES.MIN, advertParams.FEATURES.MAX), true),
+      price: getRandom(AdvertParams.PRICE.MIN, AdvertParams.PRICE.MAX),
+      type: typeTranslation[OfferParams.TYPE[getRandom(0, OfferParams.TYPE.length)]],
+      rooms: getRandom(AdvertParams.ROOMS.MIN, AdvertParams.ROOMS.MAX),
+      guests: getRandom(AdvertParams.GUESTS.MIN, AdvertParams.GUESTS.MAX),
+      checkin: OfferParams.CHECKIN[getRandom(0, OfferParams.CHECKIN.length)],
+      checkout: OfferParams.CHECKOUT[getRandom(0, OfferParams.CHECKOUT.length)],
+      features: getRandomArray(OfferParams.FEATURES, getRandom(AdvertParams.FEATURES.MIN, AdvertParams.FEATURES.MAX), true),
       description: '',
       photos: []
     },
