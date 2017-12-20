@@ -188,7 +188,7 @@ var createFragment = function (arr) {
   return fragment;
 };
 
-  //======================================== start block
+  //  ======================================== start block
 var adverts = getAdvertsArray(ADS_COUNT);
 
 var initMap = function () {
@@ -207,6 +207,6 @@ var initMap = function () {
     }
   });
 };
-  //=======================================
+  //  =======================================
 
 mapPinMain.addEventListener('mouseup', initMap);
