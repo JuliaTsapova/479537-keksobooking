@@ -66,7 +66,7 @@ var closeCard = function () {
 
 var openCard = function (cardData) {
   closeCard();
-  map.insertBefore(renderCard(cardData), filterContainer)
+  map.insertBefore(renderCard(cardData), filterContainer);
 };
 
 var closePin = function () {
@@ -101,7 +101,7 @@ var renderCard = function (cardData) {
     closeCard();
     closePin();
   });
-  closeButton.addEventListener('keydown', function () {
+  closeButton.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ENTER_KEYCODE) {
       closeCard();
       closePin();
@@ -116,7 +116,7 @@ var renderPin = function (pinData) {
   pin.style.setProperty('left', pinData.location.x + 'px');
   pin.style.setProperty('top', pinData.location.y + 'px');
   pin.querySelector('img').src = pinData.author.avatar;
-  pin.addEventListener('click', function (evt) {
+  pin.addEventListener('click', function () {
     openPin(pin, pinData);
   });
   pin.addEventListener('keydown', function (evt) {
@@ -188,7 +188,7 @@ var createFragment = function (arr) {
   return fragment;
 };
 
-//======================================== start block
+  //======================================== start block
 var adverts = getAdvertsArray(ADS_COUNT);
 
 var initMap = function () {
@@ -207,6 +207,6 @@ var initMap = function () {
     }
   });
 };
-//=======================================
+  //=======================================
 
 mapPinMain.addEventListener('mouseup', initMap);
