@@ -38,6 +38,17 @@ var typeTranslation = {
   bungalo: 'Бунгало'
 };
 
+var typeAndPrice = {
+  bungalo: '0',
+  flat: '1000',
+  house: '5000',
+  palace: '1000000'
+};
+
+var roomsAndGuests = {
+
+};
+
 var mapPins = document.querySelector('.map__pins');
 var map = document.querySelector('.map');
 var filterContainer = document.querySelector('.map__filters-container');
@@ -50,6 +61,8 @@ var checkoutValue = document.querySelector('#timeout');
 var roomsValue = document.querySelector('#room_number');
 var guestsValue = document.querySelector('#capacity');
 var typeValue = document.querySelector('#type');
+var priceValue = document.querySelector('#price');
+
 
 var getRandom = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -123,7 +136,7 @@ var renderPin = function (pinData) {
   pin.addEventListener('click', function () {
     openPin(pin, pinData);
   });
-  pin.addEventListener('keydown', function(evt) {
+  pin.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ENTER_KEYCODE) {
       openPin(pin, pinData);
     }
@@ -193,116 +206,26 @@ var createFragment = function (arr) {
 };
 
 checkinValue.addEventListener('click', function () {
-  var options = checkoutValue.querySelectorAll('option');
-
-  switch (checkinValue.value) {
-    case '12:00':
-      for (var i = 0; i < options.length; i++) {
-        options[i].removeAttribute('selected');
-      }
-      options[0].setAttribute('selected', 'selected');
-      break;
-
-    case '13:00':
-      for (var i = 0; i < options.length; i++) {
-        options[i].removeAttribute('selected');
-      }
-      options[1].setAttribute('selected', 'selected');
-      break;
-
-    case '14:00':
-      for (var i = 0; i < options.length; i++) {
-        options[i].removeAttribute('selected');
-      }
-      options[2].setAttribute('selected', 'selected');
-      break;
-  };
+  checkoutValue.value = checkinValue.value;
 });
 
 checkoutValue.addEventListener('click', function () {
-  var options = checkinValue.querySelectorAll('option');
-
-  switch (checkoutValue.value) {
-    case '12:00':
-      for (var i = 0; i < options.length; i++) {
-        options[i].removeAttribute('selected');
-      }
-      options[0].setAttribute('selected', 'selected');
-      break;
-
-    case '13:00':
-      for (var i = 0; i < options.length; i++) {
-        options[i].removeAttribute('selected');
-      }
-      options[1].setAttribute('selected', 'selected');
-      break;
-
-    case '14:00':
-      for (var i = 0; i < options.length; i++) {
-        options[i].removeAttribute('selected');
-      }
-      options[2].setAttribute('selected', 'selected');
-      break;
-  };
+  checkinValue.value = checkoutValue.value;
 });
 
 roomsValue.addEventListener('click', function () {
-  var options = guestsValue.querySelectorAll('option');
-
-  switch (roomsValue.value) {
-    case '1':
-      for (var i = 0; i < options.length; i++) {
-        options[i].removeAttribute('selected');
-      }
-      options[0].setAttribute('selected', 'selected');
-      break;
-
-    case '2':
-      for (var i = 0; i < options.length; i++) {
-        options[i].removeAttribute('selected');
-      }
-      options[1].setAttribute('selected', 'selected');
-      break;
-
-    case '3':
-      for (var i = 0; i < options.length; i++) {
-        options[i].removeAttribute('selected');
-      }
-      options[2].setAttribute('selected', 'selected');
-      break;
-
-    case '100':
-      for (var i = 0; i < options.length; i++) {
-        options[i].removeAttribute('selected');
-      }
-      options[3].setAttribute('selected', 'selected');
-      break;
+  if (roomsValue.value === '100') {
+    guestsValue.value = 0;
+  } else {
+    guestsValue.value = roomsValue.value;
   };
 });
 
 typeValue.addEventListener('click', function () {
-  var priceValue = document.querySelector('#price');
-
-  switch (typeValue.value) {
-    case 'flat':
-      priceValue.setAttribute('min', '1000');
-      break;
-
-    case 'bungalo':
-      priceValue.setAttribute('min', '0');
-      break;
-
-    case 'house':
-      priceValue.setAttribute('min', '5000');
-      break;
-
-    case 'palace':
-      priceValue.setAttribute('min', '10000');
-      break;
-  };
+  priceValue.min = typeAndPrice[typeValue.value];
 });
 
-  //  ======================================== start block
+//  ======================================== start block
 var adverts = getAdvertsArray(ADS_COUNT);
 
 var initMap = function () {
@@ -321,6 +244,6 @@ var initMap = function () {
     }
   });
 };
-  //  =======================================
+//  =======================================
 
 mapPinMain.addEventListener('mouseup', initMap);
