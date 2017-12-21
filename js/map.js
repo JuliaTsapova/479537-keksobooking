@@ -45,10 +45,6 @@ var typeAndPrice = {
   palace: '1000000'
 };
 
-var roomsAndGuests = {
-
-};
-
 var mapPins = document.querySelector('.map__pins');
 var map = document.querySelector('.map');
 var filterContainer = document.querySelector('.map__filters-container');
@@ -218,7 +214,7 @@ roomsValue.addEventListener('click', function () {
     guestsValue.value = 0;
   } else {
     guestsValue.value = roomsValue.value;
-  };
+  }
 });
 
 typeValue.addEventListener('click', function () {
