@@ -45,6 +45,13 @@ var typeAndPrice = {
   palace: '1000000'
 };
 
+var roomsAndGuests = {
+  '1': ['1'],
+  '2': ['1','2'],
+  '3': ['1','2','3'],
+  '100': ['0']
+};
+
 var mapPins = document.querySelector('.map__pins');
 var map = document.querySelector('.map');
 var filterContainer = document.querySelector('.map__filters-container');
@@ -201,23 +208,30 @@ var createFragment = function (arr) {
   return fragment;
 };
 
-checkinValue.addEventListener('click', function () {
+checkinValue.addEventListener('change', function () {
   checkoutValue.value = checkinValue.value;
 });
 
-checkoutValue.addEventListener('click', function () {
+checkoutValue.addEventListener('change', function () {
   checkinValue.value = checkoutValue.value;
 });
 
-roomsValue.addEventListener('click', function () {
-  if (roomsValue.value === '100') {
-    guestsValue.value = 0;
-  } else {
-    guestsValue.value = roomsValue.value;
+var check = function (value){
+  var options = guestsValue.querySelectorAll('option');
+  for(var i = 0; i < options.length; i++){
+    options[i].disabled = false;
+    if(roomsAndGuests[value].includes(options[i].value) === false){
+      options[i].disabled = true;
+    }
   }
+};
+
+check(roomsValue.value);
+roomsValue.addEventListener('change', function () {
+  check(roomsValue.value);
 });
 
-typeValue.addEventListener('click', function () {
+typeValue.addEventListener('change', function () {
   priceValue.min = typeAndPrice[typeValue.value];
 });
 
