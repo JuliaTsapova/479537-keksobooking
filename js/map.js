@@ -47,8 +47,8 @@ var typeAndPrice = {
 
 var roomsAndGuests = {
   '1': ['1'],
-  '2': ['1','2'],
-  '3': ['1','2','3'],
+  '2': ['1', '2'],
+  '3': ['1', '2', '3'],
   '100': ['0']
 };
 
@@ -216,13 +216,11 @@ checkoutValue.addEventListener('change', function () {
   checkinValue.value = checkoutValue.value;
 });
 
-var check = function (value){
+var check = function (value) {
   var options = guestsValue.querySelectorAll('option');
-  for(var i = 0; i < options.length; i++){
+  for (var i = 0; i < options.length; i++) {
     options[i].disabled = false;
-    if(roomsAndGuests[value].includes(options[i].value) === false){
-      options[i].disabled = true;
-    }
+    options[i].disabled = !roomsAndGuests[value].includes(options[i].value);
   }
 };
 
