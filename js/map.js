@@ -38,6 +38,20 @@ var typeTranslation = {
   bungalo: 'Бунгало'
 };
 
+var typeAndPrice = {
+  bungalo: '0',
+  flat: '1000',
+  house: '5000',
+  palace: '1000000'
+};
+
+var roomsAndGuests = {
+  '1': ['1'],
+  '2': ['1', '2'],
+  '3': ['1', '2', '3'],
+  '100': ['0']
+};
+
 var mapPins = document.querySelector('.map__pins');
 var map = document.querySelector('.map');
 var filterContainer = document.querySelector('.map__filters-container');
@@ -45,6 +59,13 @@ var cardTemplate = document.querySelector('#advert-template').content.querySelec
 var pinTemplate = document.querySelector('#advert-template').content.querySelector('.map__pin');
 var noticeForm = document.querySelector('.notice__form');
 var mapPinMain = document.querySelector('.map__pin--main');
+var checkinValue = document.querySelector('#timein');
+var checkoutValue = document.querySelector('#timeout');
+var roomsValue = document.querySelector('#room_number');
+var guestsValue = document.querySelector('#capacity');
+var typeValue = document.querySelector('#type');
+var priceValue = document.querySelector('#price');
+
 
 var getRandom = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
@@ -109,7 +130,6 @@ var renderCard = function (cardData) {
   });
   return card;
 };
-
 
 var renderPin = function (pinData) {
   var pin = pinTemplate.cloneNode(true);
@@ -188,7 +208,32 @@ var createFragment = function (arr) {
   return fragment;
 };
 
-  //  ======================================== start block
+checkinValue.addEventListener('change', function () {
+  checkoutValue.value = checkinValue.value;
+});
+
+checkoutValue.addEventListener('change', function () {
+  checkinValue.value = checkoutValue.value;
+});
+
+var check = function (value) {
+  var options = guestsValue.querySelectorAll('option');
+  for (var i = 0; i < options.length; i++) {
+    options[i].disabled = false;
+    options[i].disabled = !roomsAndGuests[value].includes(options[i].value);
+  }
+};
+
+check(roomsValue.value);
+roomsValue.addEventListener('change', function () {
+  check(roomsValue.value);
+});
+
+typeValue.addEventListener('change', function () {
+  priceValue.min = typeAndPrice[typeValue.value];
+});
+
+//  ======================================== start block
 var adverts = getAdvertsArray(ADS_COUNT);
 
 var initMap = function () {
@@ -207,6 +252,6 @@ var initMap = function () {
     }
   });
 };
-  //  =======================================
+//  =======================================
 
 mapPinMain.addEventListener('mouseup', initMap);
