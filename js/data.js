@@ -57,15 +57,15 @@
   };
 
   var getAdvert = function (x, translateX, translateY) {
-    var locationX = getRandom(300, 900) + translateX;
-    var locationY = getRandom(100, 500) + translateY;
+    var locationX = getRandom(300, 900);
+    var locationY = getRandom(100, 500);
     return {
       author: {
         avatar: getAvatar(x)
       },
       offer: {
         title: OfferParams.TITLE[x],
-        address: locationX + ', ' + locationY,
+        address: (locationX + translateX) + ', ' + (locationY + translateY),
         price: getRandom(AdvertParams.PRICE.MIN, AdvertParams.PRICE.MAX),
         type: typeTranslation[OfferParams.TYPE[getRandom(0, OfferParams.TYPE.length)]],
         rooms: getRandom(AdvertParams.ROOMS.MIN, AdvertParams.ROOMS.MAX),
