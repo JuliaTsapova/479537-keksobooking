@@ -1,7 +1,6 @@
 'use strict';
 
-(function() {
-
+(function () {
   var typeAndPrice = {
     bungalo: '0',
     flat: '1000',
@@ -23,15 +22,15 @@
   var typeValue = document.querySelector('#type');
   var priceValue = document.querySelector('#price');
 
-  checkinValue.addEventListener('change', function() {
+  checkinValue.addEventListener('change', function () {
     checkoutValue.value = checkinValue.value;
   });
 
-  checkoutValue.addEventListener('change', function() {
+  checkoutValue.addEventListener('change', function () {
     checkinValue.value = checkoutValue.value;
   });
 
-  var check = function(value) {
+  var check = function (value) {
     var options = guestsValue.querySelectorAll('option');
     for (var i = 0; i < options.length; i++) {
       options[i].disabled = false;
@@ -40,12 +39,11 @@
   };
 
   check(roomsValue.value);
-  roomsValue.addEventListener('change', function() {
+  roomsValue.addEventListener('change', function () {
     check(roomsValue.value);
   });
 
-  typeValue.addEventListener('change', function() {
+  typeValue.addEventListener('change', function () {
     priceValue.min = typeAndPrice[typeValue.value];
   });
-
 })();

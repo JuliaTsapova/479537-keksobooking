@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-
   var ENTER_KEYCODE = 13;
   var pinTemplate = document.querySelector('#advert-template').content.querySelector('.map__pin');
 
@@ -12,7 +11,7 @@
     }
   };
 
-  var openPin = function (pin, cardData, action) {
+  var pinClickHandler = function (pin, cardData, action) {
     action();
     pin.classList.add('map__pin--active');
   };
@@ -23,20 +22,18 @@
     pin.style.setProperty('top', pinData.location.y + 'px');
     pin.querySelector('img').src = pinData.author.avatar;
     pin.addEventListener('click', function () {
-      openPin(pin, pinData, action);
+      pinClickHandler(pin, pinData, action);
     });
     pin.addEventListener('keydown', function (evt) {
       if (evt.keyCode === ENTER_KEYCODE) {
-        openPin(pin, pinData, action);
+        pinClickHandler(pin, pinData, action);
       }
     });
     return pin;
   };
 
   window.pin = {
-    closePin: closePin,
-    openPin: openPin,
-    renderPin: renderPin
+    close: closePin,
+    render: renderPin
   };
-
 })();

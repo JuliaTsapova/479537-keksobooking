@@ -1,7 +1,6 @@
 'use strict';
 
-(function() {
-
+(function () {
   var ENTER_KEYCODE = 13;
   var cardTemplate = document.querySelector('#advert-template').content.querySelector('.map__card');
   var map = document.querySelector('.map');
@@ -37,7 +36,7 @@
     }
     var closeButton = card.querySelector('.popup__close');
     closeButton.addEventListener('click', action);
-    closeButton.addEventListener('keydown', function(evt) {
+    closeButton.addEventListener('keydown', function (evt) {
       if (evt.keyCode === ENTER_KEYCODE) {
         action();
       }
@@ -45,13 +44,12 @@
     return card;
   };
 
-  var openCard = function(cardData, action) {
+  var openCard = function (cardData, action) {
     map.insertBefore(renderCard(cardData, action), filterContainer);
   };
 
   window.card = {
-    openCard: openCard,
-    closeCard: closeCard,
+    open: openCard,
+    close: closeCard,
   };
-
 })();
