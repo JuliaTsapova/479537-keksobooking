@@ -1,9 +1,6 @@
 'use strict';
 
 (function () {
-  var MAIN_PIN_TRANSLATE_X = 20;
-  var MAIN_PIN_TRANSLATE_Y = 57;
-
   var typeAndPrice = {
     bungalo: '0',
     flat: '1000',
@@ -26,8 +23,8 @@
   var priceValue = document.querySelector('#price');
   var addressValue = document.querySelector('#address');
 
-  window.addressCurrentValue = function (x, y) {
-    addressValue.value = 'x: ' + (x + MAIN_PIN_TRANSLATE_X) + ', y: ' + (y + MAIN_PIN_TRANSLATE_Y);
+  window.setAddress = function (x, y, translateX, translateY) {
+    addressValue.value = 'x: ' + (x + translateX) + ', y: ' + (y + translateY);
   };
 
   checkinValue.addEventListener('change', function () {

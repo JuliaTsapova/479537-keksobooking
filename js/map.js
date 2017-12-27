@@ -5,11 +5,12 @@
   var ESC_KEYCODE = 27;
   var PIN_TRANSLATE_X = 23;
   var PIN_TRANSLATE_Y = 50;
+  var MAIN_PIN_TRANSLATE_X = 20;
   var MAIN_PIN_TRANSLATE_Y = 57;
-  var mainPinTopLimit = 100 - (MAIN_PIN_TRANSLATE_Y - PIN_TRANSLATE_Y);
-  var mainPinBottomLimit = 500 - (MAIN_PIN_TRANSLATE_Y - PIN_TRANSLATE_Y);
-  var mainPinLeftLimit = 32;
-  var mainPinRightLimit = 1170;
+  var mainPinTopLimit = 100;
+  var mainPinBottomLimit = 500;
+  var mainPinLeftLimit = 0;
+  var mainPinRightLimit = 1200;
 
   var map = document.querySelector('.map');
   var noticeForm = document.querySelector('.notice__form');
@@ -104,7 +105,7 @@
       mapPinMain.style.top = currentCoords.y + 'px';
       mapPinMain.style.left = currentCoords.x + 'px';
 
-      window.addressCurrentValue(currentCoords.x, currentCoords.y);
+      window.setAddress(currentCoords.x, currentCoords.y, MAIN_PIN_TRANSLATE_X, MAIN_PIN_TRANSLATE_Y);
     };
 
     var onMouseUp = function (upEvt) {
