@@ -5,7 +5,6 @@
   var ESC_KEYCODE = 27;
   var PIN_TRANSLATE_X = 23;
   var PIN_TRANSLATE_Y = 50;
-  var MAIN_PIN_TRANSLATE_X = 20;
   var MAIN_PIN_TRANSLATE_Y = 57;
   var mainPinTopLimit = 100 - (MAIN_PIN_TRANSLATE_Y - PIN_TRANSLATE_Y);
   var mainPinBottomLimit = 500 - (MAIN_PIN_TRANSLATE_Y - PIN_TRANSLATE_Y);

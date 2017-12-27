@@ -27,7 +27,7 @@
   var addressValue = document.querySelector('#address');
 
   window.addressCurrentValue = function (x, y) {
-  addressValue.value = 'x: ' + (x + MAIN_PIN_TRANSLATE_X) + ', y: ' + (y + MAIN_PIN_TRANSLATE_Y);
+    addressValue.value = 'x: ' + (x + MAIN_PIN_TRANSLATE_X) + ', y: ' + (y + MAIN_PIN_TRANSLATE_Y);
   };
 
   checkinValue.addEventListener('change', function () {
