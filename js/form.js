@@ -27,13 +27,23 @@
     addressValue.value = 'x: ' + x + ', y: ' + y;
   };
 
-  checkinValue.addEventListener('change', function () {
-    checkoutValue.value = checkinValue.value;
-  });
+  var syncValues = function(element1, element2) {
+    element1.addEventListener('change', function () {
+      element2.value = element1.value;
+    });
+  };
 
-  checkoutValue.addEventListener('change', function () {
-    checkinValue.value = checkoutValue.value;
-  });
+
+  var syncValueWithMin = function(typeValue, priceValue, typeAndPrice) {
+    typeValue.addEventListener('change', function () {
+      priceValue.min = typeAndPrice[typeValue.value];
+    });
+};
+
+  window.synchronizeFields(checkinValue, checkoutValue, syncValues )
+  window.synchronizeFields(checkoutValue, checkinValue, syncValues )
+  window.synchronizeFields(typeValue, priceValue, syncValueWithMin, typeAndPrice)
+
 
   var check = function (value) {
     var options = guestsValue.querySelectorAll('option');
@@ -42,13 +52,9 @@
       options[i].disabled = !roomsAndGuests[value].includes(options[i].value);
     }
   };
-
   check(roomsValue.value);
   roomsValue.addEventListener('change', function () {
     check(roomsValue.value);
   });
 
-  typeValue.addEventListener('change', function () {
-    priceValue.min = typeAndPrice[typeValue.value];
-  });
 })();
