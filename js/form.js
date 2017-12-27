@@ -21,6 +21,11 @@
   var guestsValue = document.querySelector('#capacity');
   var typeValue = document.querySelector('#type');
   var priceValue = document.querySelector('#price');
+  var addressValue = document.querySelector('#address');
+
+  window.setAddress = function (x, y) {
+    addressValue.value = 'x: ' + x + ', y: ' + y;
+  };
 
   checkinValue.addEventListener('change', function () {
     checkoutValue.value = checkinValue.value;
