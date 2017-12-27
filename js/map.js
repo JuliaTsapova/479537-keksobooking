@@ -3,14 +3,23 @@
 (function () {
   var ADS_COUNT = 8;
   var ESC_KEYCODE = 27;
-  var PIN_TRANSLATE_X = 23;
-  var PIN_TRANSLATE_Y = 50;
-  var MAIN_PIN_TRANSLATE_X = 20;
-  var MAIN_PIN_TRANSLATE_Y = 57;
-  var mainPinTopLimit = 100;
-  var mainPinBottomLimit = 500;
-  var mainPinLeftLimit = 0;
-  var mainPinRightLimit = 1200;
+  var TranslateYParams = {
+    PIN: 40,
+    MAIN_PIN: 49
+  };
+  // var PIN_TRANSLATE_Y = 40;
+  // var MAIN_PIN_TRANSLATE_Y = 49;
+
+  var MainPinLimits = {
+    TOP: 100,
+    BOTTOM: 500,
+    LEFT: 0,
+    RIGHT: 1200
+  };
+  // var mainPinTopLimit = 100;
+  // var mainPinBottomLimit = 500;
+  // var mainPinLeftLimit = 0;
+  // var mainPinRightLimit = 1200;
 
   var map = document.querySelector('.map');
   var noticeForm = document.querySelector('.notice__form');
@@ -40,7 +49,7 @@
   var getAdvertsArray = function (arrLength) {
     var adverts = [];
     for (var i = 0; i < arrLength; i++) {
-      adverts.push(window.advert(i, PIN_TRANSLATE_X, PIN_TRANSLATE_Y));
+      adverts.push(window.advert(i, TranslateYParams.PIN));
     }
     return adverts;
   };
@@ -89,23 +98,23 @@
         y: mapPinMain.offsetTop - shift.y
       };
 
-      if (currentCoords.y < mainPinTopLimit) {
-        currentCoords.y = mainPinTopLimit;
+      if (currentCoords.y < MainPinLimits.TOP - TranslateYParams.MAIN_PIN) {
+        currentCoords.y = MainPinLimits.TOP - TranslateYParams.MAIN_PIN;
       }
-      if (currentCoords.y > mainPinBottomLimit) {
-        currentCoords.y = mainPinBottomLimit;
+      if (currentCoords.y > MainPinLimits.BOTTOM - TranslateYParams.MAIN_PIN) {
+        currentCoords.y = MainPinLimits.BOTTOM - TranslateYParams.MAIN_PIN;
       }
-      if (currentCoords.x < mainPinLeftLimit) {
-        currentCoords.x = mainPinLeftLimit;
+      if (currentCoords.x < MainPinLimits.LEFT) {
+        currentCoords.x = MainPinLimits.LEFT;
       }
-      if (currentCoords.x > mainPinRightLimit) {
-        currentCoords.x = mainPinRightLimit;
+      if (currentCoords.x > MainPinLimits.RIGHT) {
+        currentCoords.x = MainPinLimits.RIGHT;
       }
 
       mapPinMain.style.top = currentCoords.y + 'px';
       mapPinMain.style.left = currentCoords.x + 'px';
 
-      window.setAddress(currentCoords.x, currentCoords.y, MAIN_PIN_TRANSLATE_X, MAIN_PIN_TRANSLATE_Y);
+      window.setAddress(currentCoords.x, currentCoords.y + TranslateYParams.MAIN_PIN);
     };
 
     var onMouseUp = function (upEvt) {

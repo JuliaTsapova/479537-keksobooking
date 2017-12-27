@@ -23,8 +23,8 @@
   var priceValue = document.querySelector('#price');
   var addressValue = document.querySelector('#address');
 
-  window.setAddress = function (x, y, translateX, translateY) {
-    addressValue.value = 'x: ' + (x + translateX) + ', y: ' + (y + translateY);
+  window.setAddress = function (x, y) {
+    addressValue.value = 'x: ' + x + ', y: ' + y;
   };
 
   checkinValue.addEventListener('change', function () {
