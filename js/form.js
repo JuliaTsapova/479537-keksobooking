@@ -27,22 +27,21 @@
     addressValue.value = 'x: ' + x + ', y: ' + y;
   };
 
-  var syncValues = function(element1, element2) {
+  var syncValues = function (element1, element2) {
     element1.addEventListener('change', function () {
       element2.value = element1.value;
     });
   };
 
-
-  var syncValueWithMin = function(typeValue, priceValue, typeAndPrice) {
-    typeValue.addEventListener('change', function () {
-      priceValue.min = typeAndPrice[typeValue.value];
+  var syncValueWithMin = function (element1, element2, params) {
+    element1.addEventListener('change', function () {
+      element2.min = params[element1.value];
     });
-};
+  };
 
-  window.synchronizeFields(checkinValue, checkoutValue, syncValues )
-  window.synchronizeFields(checkoutValue, checkinValue, syncValues )
-  window.synchronizeFields(typeValue, priceValue, syncValueWithMin, typeAndPrice)
+  window.synchronizeFields(checkinValue, checkoutValue, syncValues);
+  window.synchronizeFields(checkoutValue, checkinValue, syncValues);
+  window.synchronizeFields(typeValue, priceValue, syncValueWithMin, typeAndPrice);
 
 
   var check = function (value) {
