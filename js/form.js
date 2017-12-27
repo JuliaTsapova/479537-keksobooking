@@ -1,6 +1,9 @@
 'use strict';
 
 (function () {
+  var MAIN_PIN_TRANSLATE_X = 20;
+  var MAIN_PIN_TRANSLATE_Y = 57;
+
   var typeAndPrice = {
     bungalo: '0',
     flat: '1000',
@@ -21,6 +24,11 @@
   var guestsValue = document.querySelector('#capacity');
   var typeValue = document.querySelector('#type');
   var priceValue = document.querySelector('#price');
+  var addressValue = document.querySelector('#address');
+
+  window.addressCurrentValue = function (x, y) {
+  addressValue.value = 'x: ' + (x + MAIN_PIN_TRANSLATE_X) + ', y: ' + (y + MAIN_PIN_TRANSLATE_Y);
+  };
 
   checkinValue.addEventListener('change', function () {
     checkoutValue.value = checkinValue.value;

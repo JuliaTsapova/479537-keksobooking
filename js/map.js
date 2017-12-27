@@ -3,18 +3,19 @@
 (function () {
   var ADS_COUNT = 8;
   var ESC_KEYCODE = 27;
-  var pinTranslateX = 23;
-  var pinTranslateY = 50;
-  var mainPinTranslateX = 20;
-  var mainPinTranslateY = 57;
-  var mainPinTopLimit = 100 - (mainPinTranslateY - pinTranslateY);
-  var mainPinBottomLimit = 500 - (mainPinTranslateY - pinTranslateY);
+  var PIN_TRANSLATE_X = 23;
+  var PIN_TRANSLATE_Y = 50;
+  var MAIN_PIN_TRANSLATE_X = 20;
+  var MAIN_PIN_TRANSLATE_Y = 57;
+  var mainPinTopLimit = 100 - (MAIN_PIN_TRANSLATE_Y - PIN_TRANSLATE_Y);
+  var mainPinBottomLimit = 500 - (MAIN_PIN_TRANSLATE_Y - PIN_TRANSLATE_Y);
+  var mainPinLeftLimit = 32;
+  var mainPinRightLimit = 1170;
 
   var map = document.querySelector('.map');
   var noticeForm = document.querySelector('.notice__form');
   var mapPinMain = document.querySelector('.map__pin--main');
   var mapPins = document.querySelector('.map__pins');
-  var addressValue = document.querySelector('#address');
 
   var closeAdvert = function () {
     window.card.close();
@@ -39,7 +40,7 @@
   var getAdvertsArray = function (arrLength) {
     var adverts = [];
     for (var i = 0; i < arrLength; i++) {
-      adverts.push(window.advert(i, pinTranslateX, pinTranslateY));
+      adverts.push(window.advert(i, PIN_TRANSLATE_X, PIN_TRANSLATE_Y));
     }
     return adverts;
   };
@@ -90,17 +91,21 @@
 
       if (currentCoords.y < mainPinTopLimit) {
         currentCoords.y = mainPinTopLimit;
-      } else if (currentCoords.y > mainPinBottomLimit) {
+      }
+      if (currentCoords.y > mainPinBottomLimit) {
         currentCoords.y = mainPinBottomLimit;
+      }
+      if (currentCoords.x < mainPinLeftLimit) {
+        currentCoords.x = mainPinLeftLimit;
+      }
+      if (currentCoords.x > mainPinRightLimit) {
+        currentCoords.x = mainPinRightLimit;
       }
 
       mapPinMain.style.top = currentCoords.y + 'px';
       mapPinMain.style.left = currentCoords.x + 'px';
 
-      addressValue.value = 'x: ' + (currentCoords.x + mainPinTranslateX) + ', y: ' + (currentCoords.y + mainPinTranslateY);
-
-      mapPinMain.style.top = currentCoords.y + 'px';
-      mapPinMain.style.left = currentCoords.x + 'px';
+      window.addressCurrentValue(currentCoords.x, currentCoords.y);
     };
 
     var onMouseUp = function (upEvt) {
