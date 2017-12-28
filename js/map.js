@@ -29,7 +29,7 @@
   var addPin = function (fragment, pinData) {
     fragment.appendChild(window.pin.render(pinData, function () {
       closeAdvert();
-      window.showCard(pinData, closeAdvert);
+      window.card.open(pinData, closeAdvert);
     }));
   };
 

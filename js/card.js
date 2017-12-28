@@ -51,6 +51,5 @@
   window.card = {
     open: openCard,
     close: closeCard,
-    render: renderCard,
   };
 })();

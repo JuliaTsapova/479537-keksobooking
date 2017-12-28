@@ -2,8 +2,8 @@
 
 (function () {
   var typeAndPrice = {
-    bungalo: '0',
     flat: '1000',
+    bungalo: '0',
     house: '5000',
     palace: '1000000'
   };
@@ -14,6 +14,8 @@
     '3': ['1', '2', '3'],
     '100': ['0']
   };
+
+  var timeInTimeOut = ['12:00', '13:00', '14:00'];
 
   var checkinValue = document.querySelector('#timein');
   var checkoutValue = document.querySelector('#timeout');
@@ -27,22 +29,29 @@
     addressValue.value = 'x: ' + x + ', y: ' + y;
   };
 
-  var syncValues = function (element1, element2) {
-    element1.addEventListener('change', function () {
-      element2.value = element1.value;
-    });
+  var syncValues = function (element1, element2, arrayValues1, arrayValues2) {
+      if(arrayValues1.includes(element1.value)){
+        element2.value = arrayValues2[element1.selectedIndex];
+      }
   };
 
-  var syncValueWithMin = function (element1, element2, params) {
-    element1.addEventListener('change', function () {
-      element2.min = params[element1.value];
-    });
+  var syncValueWithMin = function (element1, element2, arrayValues1, arrayValues2) {
+      if(arrayValues1.includes(element1.value)){
+        element2.min = arrayValues2[element1.selectedIndex];
+      }
   };
 
-  window.synchronizeFields(checkinValue, checkoutValue, syncValues);
-  window.synchronizeFields(checkoutValue, checkinValue, syncValues);
-  window.synchronizeFields(typeValue, priceValue, syncValueWithMin, typeAndPrice);
+  checkinValue.addEventListener('change', function () {
+      window.synchronizeFields(checkinValue, checkoutValue, timeInTimeOut, timeInTimeOut, syncValues);
+  });
 
+  checkoutValue.addEventListener('change', function () {
+      window.synchronizeFields(checkoutValue, checkinValue, timeInTimeOut, timeInTimeOut, syncValues);
+  });
+
+  typeValue.addEventListener('change', function () {
+      window.synchronizeFields(typeValue, priceValue, Object.keys(typeAndPrice), Object.values(typeAndPrice), syncValueWithMin);
+  });
 
   var check = function (value) {
     var options = guestsValue.querySelectorAll('option');
