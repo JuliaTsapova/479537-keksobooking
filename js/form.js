@@ -30,27 +30,27 @@
   };
 
   var syncValues = function (element1, element2, arrayValues1, arrayValues2) {
-      if(arrayValues1.includes(element1.value)){
-        element2.value = arrayValues2[element1.selectedIndex];
-      }
+    if (arrayValues1.includes(element1.value)) {
+      element2.value = arrayValues2[element1.selectedIndex];
+    }
   };
 
   var syncValueWithMin = function (element1, element2, arrayValues1, arrayValues2) {
-      if(arrayValues1.includes(element1.value)){
-        element2.min = arrayValues2[element1.selectedIndex];
-      }
+    if (arrayValues1.includes(element1.value)) {
+      element2.min = arrayValues2[element1.selectedIndex];
+    }
   };
 
   checkinValue.addEventListener('change', function () {
-      window.synchronizeFields(checkinValue, checkoutValue, timeInTimeOut, timeInTimeOut, syncValues);
+    window.synchronizeFields(checkinValue, checkoutValue, timeInTimeOut, timeInTimeOut, syncValues);
   });
 
   checkoutValue.addEventListener('change', function () {
-      window.synchronizeFields(checkoutValue, checkinValue, timeInTimeOut, timeInTimeOut, syncValues);
+    window.synchronizeFields(checkoutValue, checkinValue, timeInTimeOut, timeInTimeOut, syncValues);
   });
 
   typeValue.addEventListener('change', function () {
-      window.synchronizeFields(typeValue, priceValue, Object.keys(typeAndPrice), Object.values(typeAndPrice), syncValueWithMin);
+    window.synchronizeFields(typeValue, priceValue, Object.keys(typeAndPrice), Object.values(typeAndPrice), syncValueWithMin);
   });
 
   var check = function (value) {
