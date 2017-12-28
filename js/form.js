@@ -2,8 +2,8 @@
 
 (function () {
   var typeAndPrice = {
-    bungalo: '0',
     flat: '1000',
+    bungalo: '0',
     house: '5000',
     palace: '1000000'
   };
@@ -14,6 +14,8 @@
     '3': ['1', '2', '3'],
     '100': ['0']
   };
+
+  var timeInTimeOut = ['12:00', '13:00', '14:00'];
 
   var checkinValue = document.querySelector('#timein');
   var checkoutValue = document.querySelector('#timeout');
@@ -27,13 +29,21 @@
     addressValue.value = 'x: ' + x + ', y: ' + y;
   };
 
-  checkinValue.addEventListener('change', function () {
-    checkoutValue.value = checkinValue.value;
-  });
+  var syncValues = function (element1, element2, arrayValues1, arrayValues2) {
+    if (arrayValues1.includes(element1.value)) {
+      element2.value = arrayValues2[element1.selectedIndex];
+    }
+  };
 
-  checkoutValue.addEventListener('change', function () {
-    checkinValue.value = checkoutValue.value;
-  });
+  var syncValueWithMin = function (element1, element2, arrayValues1, arrayValues2) {
+    if (arrayValues1.includes(element1.value)) {
+      element2.min = arrayValues2[element1.selectedIndex];
+    }
+  };
+
+  window.synchronizeFields(checkinValue, checkoutValue, timeInTimeOut, timeInTimeOut, syncValues);
+  window.synchronizeFields(checkoutValue, checkinValue, timeInTimeOut, timeInTimeOut, syncValues);
+  window.synchronizeFields(typeValue, priceValue, Object.keys(typeAndPrice), Object.values(typeAndPrice), syncValueWithMin);
 
   var check = function (value) {
     var options = guestsValue.querySelectorAll('option');
@@ -42,13 +52,9 @@
       options[i].disabled = !roomsAndGuests[value].includes(options[i].value);
     }
   };
-
   check(roomsValue.value);
   roomsValue.addEventListener('change', function () {
     check(roomsValue.value);
   });
 
-  typeValue.addEventListener('change', function () {
-    priceValue.min = typeAndPrice[typeValue.value];
-  });
 })();
