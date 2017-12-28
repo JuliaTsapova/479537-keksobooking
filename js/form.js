@@ -41,17 +41,9 @@
     }
   };
 
-  checkinValue.addEventListener('change', function () {
-    window.synchronizeFields(checkinValue, checkoutValue, timeInTimeOut, timeInTimeOut, syncValues);
-  });
-
-  checkoutValue.addEventListener('change', function () {
-    window.synchronizeFields(checkoutValue, checkinValue, timeInTimeOut, timeInTimeOut, syncValues);
-  });
-
-  typeValue.addEventListener('change', function () {
-    window.synchronizeFields(typeValue, priceValue, Object.keys(typeAndPrice), Object.values(typeAndPrice), syncValueWithMin);
-  });
+  window.synchronizeFields(checkinValue, checkoutValue, timeInTimeOut, timeInTimeOut, syncValues);
+  window.synchronizeFields(checkoutValue, checkinValue, timeInTimeOut, timeInTimeOut, syncValues);
+  window.synchronizeFields(typeValue, priceValue, Object.keys(typeAndPrice), Object.values(typeAndPrice), syncValueWithMin);
 
   var check = function (value) {
     var options = guestsValue.querySelectorAll('option');
