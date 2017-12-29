@@ -1,8 +1,9 @@
 'use strict';
 
 (function () {
-  var ADS_COUNT = 8;
   var ESC_KEYCODE = 27;
+  var errorPopup = document.querySelector('.error-popup');
+  var errorText = errorPopup.querySelector('.error-message');
 
   var TranslateYParams = {
     PIN: 40,
@@ -20,6 +21,24 @@
   var noticeForm = document.querySelector('.notice__form');
   var mapPinMain = document.querySelector('.map__pin--main');
   var mapPins = document.querySelector('.map__pins');
+  var addressValue = document.querySelector('#address');
+
+  var getRandom = function (min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  };
+
+  var getRandomArray = function (array, length, unique) {
+    var randomArray = [];
+    while (randomArray.length < length) {
+      var value = array[getRandom(0, array.length)];
+      if (unique && randomArray.indexOf(value) !== -1) {
+        continue;
+      } else {
+        randomArray.push(value);
+      }
+    }
+    return randomArray;
+  };
 
   var closeAdvert = function () {
     window.card.close();
@@ -41,12 +60,16 @@
     return fragment;
   };
 
-  var getAdvertsArray = function (arrLength) {
-    var adverts = [];
-    for (var i = 0; i < arrLength; i++) {
-      adverts.push(window.advert(i, TranslateYParams.PIN));
-    }
-    return adverts;
+  var onAdvertsLoad = function (data) {
+    mapPins.appendChild(createFragment(getRandomArray(data, 5, true)));
+  };
+
+  var onAdvertsLoadError = function (errorMessage) {
+    errorText.innerText = errorMessage;
+    errorPopup.classList.remove('hidden');
+    setTimeout(function () {
+      errorPopup.classList.add('hidden');
+    }, 3000);
   };
 
   var initMap = function () {
@@ -56,7 +79,8 @@
     for (var i = 0; i < items.length; i++) {
       items[i].removeAttribute('disabled');
     }
-    mapPins.appendChild(createFragment(getAdvertsArray(ADS_COUNT)));
+    window.load(onAdvertsLoad, onAdvertsLoadError);
+    addressValue.value = 'x: ' + mapPinMain.offsetLeft + ', y:' + (mapPinMain.offsetTop + TranslateYParams.MAIN_PIN);
     mapPinMain.removeEventListener('mouseup', initMap);
     document.documentElement.addEventListener('keydown', function (evt) {
       if (evt.keyCode === ESC_KEYCODE && evt.target.className.indexOf('popup__close') === -1) {

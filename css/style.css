@@ -120,6 +120,26 @@ textarea:focus
     clip-path: inset(100%);
 }
 
+.error-popup
+{
+  height: 100px;
+  width: 400px;
+  padding: 30px 30px;
+  background-color: #fff4f4;
+  border: 10px solid #cd2b2b;
+  border-radius: 50px;
+  position: fixed;
+  top: calc(50% - 50px);
+  left: calc(50% - 200px);
+  z-index: 2;
+}
+
+.error-message
+{
+  color: #cd2b2b;
+  font-size: 22px;
+}
+
 .features
 {
     white-space: nowrap;
