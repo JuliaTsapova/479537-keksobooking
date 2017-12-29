@@ -60,7 +60,7 @@
       options[i].selected = true;
       options[i].disabled = false;
       options[i].disabled = !roomsAndGuests[value].includes(options[i].value);
-      if(options[i].disabled){
+      if (options[i].disabled) {
         options[i].selected = false;
       }
     }
@@ -71,7 +71,7 @@
     check(roomsValue.value);
   });
 
-  var customFormReset = function (){
+  var customFormReset = function () {
     noticeForm.reset();
     check(roomsValue.value);
     typeValue.querySelectorAll('option')[0].selected = true;
