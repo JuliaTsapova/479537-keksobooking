@@ -21,6 +21,24 @@
   var noticeForm = document.querySelector('.notice__form');
   var mapPinMain = document.querySelector('.map__pin--main');
   var mapPins = document.querySelector('.map__pins');
+  var addressValue = document.querySelector('#address');
+
+  var getRandom = function (min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+  };
+
+  var getRandomArray = function (array, length, unique) {
+    var randomArray = [];
+    while (randomArray.length < length) {
+      var value = array[getRandom(0, array.length)];
+      if (unique && randomArray.indexOf(value) !== -1) {
+        continue;
+      } else {
+        randomArray.push(value);
+      }
+    }
+    return randomArray;
+  };
 
   var closeAdvert = function () {
     window.card.close();
@@ -43,7 +61,7 @@
   };
 
   var onAdvertsLoad = function (data) {
-    mapPins.appendChild(createFragment(data));
+    mapPins.appendChild(createFragment(getRandomArray(data, 5, true)));
   };
 
   var onAdvertsLoadError = function (errorMessage) {
@@ -51,7 +69,7 @@
     errorPopup.classList.remove('hidden');
     setTimeout(function () {
       errorPopup.classList.add('hidden');
-    }, 15000);
+    }, 3000);
   };
 
   var initMap = function () {
@@ -62,6 +80,7 @@
       items[i].removeAttribute('disabled');
     }
     window.load(onAdvertsLoad, onAdvertsLoadError);
+    addressValue.value = 'x: ' + mapPinMain.offsetLeft + ', y:' + (mapPinMain.offsetTop + TranslateYParams.MAIN_PIN);
     mapPinMain.removeEventListener('mouseup', initMap);
     document.documentElement.addEventListener('keydown', function (evt) {
       if (evt.keyCode === ESC_KEYCODE && evt.target.className.indexOf('popup__close') === -1) {

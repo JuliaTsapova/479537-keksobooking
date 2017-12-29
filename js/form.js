@@ -1,6 +1,11 @@
 'use strict';
 
 (function () {
+  var TranslateYParams = {
+    PIN: 40,
+    MAIN_PIN: 49
+  };
+
   var typeAndPrice = {
     flat: '1000',
     bungalo: '0',
@@ -27,6 +32,7 @@
   var addressValue = document.querySelector('#address');
   var errorPopup = document.querySelector('.error-popup');
   var errorText = errorPopup.querySelector('.error-message');
+  var mapPinMain = document.querySelector('.map__pin--main');
 
   window.setAddress = function (x, y) {
     addressValue.value = 'x: ' + x + ', y: ' + y;
@@ -51,25 +57,39 @@
   var check = function (value) {
     var options = guestsValue.querySelectorAll('option');
     for (var i = 0; i < options.length; i++) {
+      options[i].selected = true;
       options[i].disabled = false;
       options[i].disabled = !roomsAndGuests[value].includes(options[i].value);
+      if(options[i].disabled){
+        options[i].selected = false;
+      }
     }
   };
+
   check(roomsValue.value);
   roomsValue.addEventListener('change', function () {
     check(roomsValue.value);
   });
 
-  var onSuccess = function () {
+  var customFormReset = function (){
     noticeForm.reset();
+    check(roomsValue.value);
+    typeValue.querySelectorAll('option')[0].selected = true;
+    priceValue.min = 0;
+    addressValue.value = 'x: ' + mapPinMain.offsetLeft + ', y:' + (mapPinMain.offsetTop + TranslateYParams.MAIN_PIN);
+  };
+
+  var onSuccess = function () {
+    customFormReset();
   };
 
   var onError = function (errorMessage) {
+    customFormReset();
     errorText.innerText = errorMessage;
     errorPopup.classList.remove('hidden');
     setTimeout(function () {
       errorPopup.classList.add('hidden');
-    }, 15000);
+    }, 3000);
   };
 
   noticeForm.addEventListener('submit', function (evt) {
