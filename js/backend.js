@@ -26,7 +26,7 @@
       xhr.send();
     } catch (error) {
       onError(error.message);
-    };
+    }
   };
   window.upload = function (data, onLoad, onError) {
     try {
@@ -50,6 +50,6 @@
       xhr.send(data);
     } catch (error) {
       onError(error.message);
-    };
+    }
   };
 })();

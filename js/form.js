@@ -60,7 +60,7 @@
     check(roomsValue.value);
   });
 
-  var onSuccess = function (data) {
+  var onSuccess = function () {
     noticeForm.reset();
   };
 

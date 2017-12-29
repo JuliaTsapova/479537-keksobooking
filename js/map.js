@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var ADS_COUNT = 8;
   var ESC_KEYCODE = 27;
   var errorPopup = document.querySelector('.error-popup');
   var errorText = errorPopup.querySelector('.error-message');
@@ -42,15 +41,6 @@
     }
     return fragment;
   };
-
-  var getAdvertsArray = function (arrLength) {
-    var adverts = [];
-    for (var i = 0; i < arrLength; i++) {
-      adverts.push(window.advert(i, TranslateYParams.PIN));
-    }
-    return adverts;
-  };
-
 
   var onAdvertsLoad = function (data) {
     mapPins.appendChild(createFragment(data));
