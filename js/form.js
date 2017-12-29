@@ -17,6 +17,7 @@
 
   var timeInTimeOut = ['12:00', '13:00', '14:00'];
 
+  var noticeForm = document.querySelector('.notice__form');
   var checkinValue = document.querySelector('#timein');
   var checkoutValue = document.querySelector('#timeout');
   var roomsValue = document.querySelector('#room_number');
@@ -24,6 +25,8 @@
   var typeValue = document.querySelector('#type');
   var priceValue = document.querySelector('#price');
   var addressValue = document.querySelector('#address');
+  var errorPopup = document.querySelector('.error-popup');
+  var errorText = errorPopup.querySelector('.error-message');
 
   window.setAddress = function (x, y) {
     addressValue.value = 'x: ' + x + ', y: ' + y;
@@ -55,6 +58,23 @@
   check(roomsValue.value);
   roomsValue.addEventListener('change', function () {
     check(roomsValue.value);
+  });
+
+  var onSuccess = function (data) {
+    noticeForm.reset();
+  };
+
+  var onError = function (errorMessage) {
+    errorText.innerText = errorMessage;
+    errorPopup.classList.remove('hidden');
+    setTimeout(function () {
+      errorPopup.classList.add('hidden');
+    }, 15000);
+  };
+
+  noticeForm.addEventListener('submit', function (evt) {
+    window.upload(new FormData(noticeForm), onSuccess, onError);
+    evt.preventDefault();
   });
 
 })();

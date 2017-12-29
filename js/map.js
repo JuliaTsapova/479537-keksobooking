@@ -3,6 +3,8 @@
 (function () {
   var ADS_COUNT = 8;
   var ESC_KEYCODE = 27;
+  var errorPopup = document.querySelector('.error-popup');
+  var errorText = errorPopup.querySelector('.error-message');
 
   var TranslateYParams = {
     PIN: 40,
@@ -49,6 +51,19 @@
     return adverts;
   };
 
+
+  var onAdvertsLoad = function (data) {
+    mapPins.appendChild(createFragment(data));
+  };
+
+  var onAdvertsLoadError = function (errorMessage) {
+    errorText.innerText = errorMessage;
+    errorPopup.classList.remove('hidden');
+    setTimeout(function () {
+      errorPopup.classList.add('hidden');
+    }, 15000);
+  };
+
   var initMap = function () {
     map.classList.remove('map--faded');
     noticeForm.classList.remove('notice__form--disabled');
@@ -56,7 +71,7 @@
     for (var i = 0; i < items.length; i++) {
       items[i].removeAttribute('disabled');
     }
-    mapPins.appendChild(createFragment(getAdvertsArray(ADS_COUNT)));
+    window.load(onAdvertsLoad, onAdvertsLoadError);
     mapPinMain.removeEventListener('mouseup', initMap);
     document.documentElement.addEventListener('keydown', function (evt) {
       if (evt.keyCode === ESC_KEYCODE && evt.target.className.indexOf('popup__close') === -1) {
