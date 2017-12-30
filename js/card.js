@@ -23,13 +23,13 @@
   var renderCard = function (cardData, action) {
     var card = cardTemplate.cloneNode(true);
     card.querySelector('.popup__avatar').src = cardData.author.avatar;
-    card.querySelector('h3').innerText = cardData.offer.title;
-    card.querySelector('.popup__price').innerText = cardData.offer.price + ' \t\u20BD /ночь';
-    card.querySelector('h4').innerText = cardData.offer.type;
-    card.querySelector('.rooms-and-guests').innerText = cardData.offer.rooms + ' комнат для ' + cardData.offer.guests + ' гостей';
-    card.querySelector('.checkin-and-checkout').innerText = 'Заезд после ' + cardData.offer.checkin + ' , выезд до ' + cardData.offer.checkout;
-    card.querySelector('.popup__description').innerText = cardData.offer.description;
-    card.querySelector('.popup__address').innerText = cardData.offer.address;
+    card.querySelector('h3').textContent = cardData.offer.title;
+    card.querySelector('.popup__price').textContent = cardData.offer.price + ' \t\u20BD /ночь';
+    card.querySelector('h4').textContent = cardData.offer.type;
+    card.querySelector('.rooms-and-guests').textContent = cardData.offer.rooms + ' комнат для ' + cardData.offer.guests + ' гостей';
+    card.querySelector('.checkin-and-checkout').textContent = 'Заезд после ' + cardData.offer.checkin + ' , выезд до ' + cardData.offer.checkout;
+    card.querySelector('.popup__description').textContent = cardData.offer.description;
+    card.querySelector('.popup__address').textContent = cardData.offer.address;
     var features = card.querySelector('.popup__features');
     for (var i = 0; i < cardData.offer.features.length; i++) {
       features.appendChild(createLi(cardData.offer.features[i]));

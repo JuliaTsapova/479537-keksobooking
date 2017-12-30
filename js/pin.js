@@ -11,7 +11,7 @@
     }
   };
 
-  var pinClickHandler = function (pin, cardData, action) {
+  var onPinClick = function (pin, cardData, action) {
     action();
     pin.classList.add('map__pin--active');
   };
@@ -22,11 +22,11 @@
     pin.style.setProperty('top', pinData.location.y + 'px');
     pin.querySelector('img').src = pinData.author.avatar;
     pin.addEventListener('click', function () {
-      pinClickHandler(pin, pinData, action);
+      onPinClick(pin, pinData, action);
     });
     pin.addEventListener('keydown', function (evt) {
       if (evt.keyCode === ENTER_KEYCODE) {
-        pinClickHandler(pin, pinData, action);
+        onPinClick(pin, pinData, action);
       }
     });
     return pin;
