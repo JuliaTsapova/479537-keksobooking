@@ -10,7 +10,7 @@
     flat: '1000',
     bungalo: '0',
     house: '5000',
-    palace: '1000000'
+    palace: '10000'
   };
 
   var roomsAndGuests = {
