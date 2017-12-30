@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var TIME_VALUES = ['12:00', '13:00', '14:00'];
+
   var TranslateYParams = {
     PIN: 40,
     MAIN_PIN: 49
@@ -13,14 +15,12 @@
     palace: '10000'
   };
 
-  var roomsAndGuests = {
+  var RoomsAndGuests = {
     '1': ['1'],
     '2': ['1', '2'],
     '3': ['1', '2', '3'],
     '100': ['0']
   };
-
-  var timeInTimeOut = ['12:00', '13:00', '14:00'];
 
   var noticeForm = document.querySelector('.notice__form');
   var checkinValue = document.querySelector('#timein');
@@ -50,41 +50,37 @@
     }
   };
 
-  window.synchronizeFields(checkinValue, checkoutValue, timeInTimeOut, timeInTimeOut, syncValues);
-  window.synchronizeFields(checkoutValue, checkinValue, timeInTimeOut, timeInTimeOut, syncValues);
+  window.synchronizeFields(checkinValue, checkoutValue, TIME_VALUES, TIME_VALUES, syncValues);
+  window.synchronizeFields(checkoutValue, checkinValue, TIME_VALUES, TIME_VALUES, syncValues);
   window.synchronizeFields(typeValue, priceValue, Object.keys(typeAndPrice), Object.values(typeAndPrice), syncValueWithMin);
 
-  var check = function (value) {
+  var checkRoomsAndGuests = function (value) {
     var options = guestsValue.querySelectorAll('option');
     for (var i = 0; i < options.length; i++) {
-      options[i].selected = true;
-      options[i].disabled = false;
-      options[i].disabled = !roomsAndGuests[value].includes(options[i].value);
-      if (options[i].disabled) {
-        options[i].selected = false;
-      }
+      options[i].disabled = !RoomsAndGuests[value].includes(options[i].value);
     }
+    guestsValue.value = RoomsAndGuests[value][0];
   };
 
-  check(roomsValue.value);
+  checkRoomsAndGuests(roomsValue.value);
   roomsValue.addEventListener('change', function () {
-    check(roomsValue.value);
+    checkRoomsAndGuests(roomsValue.value);
   });
 
-  var customFormReset = function () {
+  var resetForm = function () {
     noticeForm.reset();
-    check(roomsValue.value);
+    checkRoomsAndGuests(roomsValue.value);
     typeValue.querySelectorAll('option')[0].selected = true;
     priceValue.min = 0;
     addressValue.value = 'x: ' + mapPinMain.offsetLeft + ', y:' + (mapPinMain.offsetTop + TranslateYParams.MAIN_PIN);
   };
 
   var onSuccess = function () {
-    customFormReset();
+    resetForm();
   };
 
   var onError = function (errorMessage) {
-    customFormReset();
+    resetForm();
     errorText.textContent = errorMessage;
     errorPopup.classList.remove('hidden');
     setTimeout(function () {
@@ -93,7 +89,7 @@
   };
 
   noticeForm.addEventListener('submit', function (evt) {
-    window.upload(new FormData(noticeForm), onSuccess, onError);
+    window.http.upload(new FormData(noticeForm), onSuccess, onError);
     evt.preventDefault();
   });
 

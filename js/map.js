@@ -27,23 +27,6 @@
 
   var filterForm = document.querySelector('.map__filters');
 
-  var getRandom = function (min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
-  };
-
-  var getRandomArray = function (array, length, unique) {
-    var randomArray = [];
-    while (randomArray.length < length) {
-      var value = array[getRandom(0, array.length)];
-      if (unique && randomArray.indexOf(value) !== -1) {
-        continue;
-      } else {
-        randomArray.push(value);
-      }
-    }
-    return randomArray;
-  };
-
   var closeAdvert = function () {
     window.card.close();
     window.pin.close();
@@ -84,7 +67,7 @@
     for (var i = 0; i < items.length; i++) {
       items[i].removeAttribute('disabled');
     }
-    window.load(onAdvertsLoad, onAdvertsLoadError);
+    window.http.load(onAdvertsLoad, onAdvertsLoadError);
     addressValue.value = 'x: ' + mapPinMain.offsetLeft + ', y:' + (mapPinMain.offsetTop + TranslateYParams.MAIN_PIN);
     mapPinMain.removeEventListener('mouseup', initMap);
     filterForm.addEventListener('change', function () {
