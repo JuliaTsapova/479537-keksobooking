@@ -67,14 +67,14 @@
     for (var i = 0; i < items.length; i++) {
       items[i].removeAttribute('disabled');
     }
-    window.http.load(onAdvertsLoad, onAdvertsLoadError);
+    window.backend.load(onAdvertsLoad, onAdvertsLoadError);
     addressValue.value = 'x: ' + mapPinMain.offsetLeft + ', y:' + (mapPinMain.offsetTop + TranslateYParams.MAIN_PIN);
     mapPinMain.removeEventListener('mouseup', initMap);
     filterForm.addEventListener('change', function () {
       window.debounce(function () {
         var pins = mapPins.querySelectorAll('button[class="map__pin"]');
-        for (var i = 0; i < pins.length; i++) {
-          mapPins.removeChild(pins[i]);
+        for (var index = 0; index < pins.length; index++) {
+          mapPins.removeChild(pins[index]);
         }
         mapPins.appendChild(createFragment(window.filterData(loadedAdverts)));
       });

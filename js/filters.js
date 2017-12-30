@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+(function () {
 
   var ADVERTS_LIMIT = 5;
 
@@ -17,7 +17,7 @@
   var housingGuests = filterForm.querySelector('select[name="housing-guests"]');
   var housingFeatures = filterForm.querySelectorAll('fieldset input[type="checkbox"]');
 
-  var getSelectedCheckboxs = function(inputs) {
+  var getSelectedCheckboxs = function (inputs) {
     var selectedCheckboxs = [];
     for (var i = 0; i < inputs.length; i++) {
       if (inputs[i].checked === true) {
@@ -25,23 +25,23 @@
       }
     }
     return selectedCheckboxs;
-  }
+  };
 
-  var compareValues = function(value, filterValue) {
+  var compareValues = function (value, filterValue) {
     if (filterValue === 'any') {
       return true;
     }
     return value === +filterValue;
   };
 
-  var filterType = function(value, filterValue) {
+  var filterType = function (value, filterValue) {
     if (filterValue === 'any') {
       return true;
     }
     return value === filterValue;
   };
 
-  var filterPrice = function(value, filterValue) {
+  var filterPrice = function (value, filterValue) {
     switch (filterValue) {
       case 'middle':
         return (HousingPriceValue.LOW < value && value < HousingPriceValue.HIGH);
@@ -54,7 +54,7 @@
     }
   };
 
-  var filterFeatures = function(offerFeatures) {
+  var filterFeatures = function (offerFeatures) {
     var features = getSelectedCheckboxs(housingFeatures);
     var index = features.length;
     while (--index >= 0) {
@@ -65,8 +65,8 @@
     return true;
   };
 
-  window.filterData = function(pins) {
-    var result = pins.filter(function(element) {
+  window.filterData = function (pins) {
+    var result = pins.filter(function (element) {
       return filterType(element.offer.type, housingType.value) &&
         filterPrice(element.offer.price, housingPrice.value) &&
         compareValues(element.offer.rooms, housingRooms.value) &&

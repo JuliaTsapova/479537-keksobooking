@@ -38,7 +38,7 @@
     xhr.send(data);
   };
 
-  window.http = {
+  window.backend = {
     load: loadData,
     upload: uploadData
   };

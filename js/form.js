@@ -89,7 +89,7 @@
   };
 
   noticeForm.addEventListener('submit', function (evt) {
-    window.http.upload(new FormData(noticeForm), onSuccess, onError);
+    window.backend.upload(new FormData(noticeForm), onSuccess, onError);
     evt.preventDefault();
   });
 
