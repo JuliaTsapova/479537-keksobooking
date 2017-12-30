@@ -85,7 +85,7 @@
 
   var onError = function (errorMessage) {
     customFormReset();
-    errorText.innerText = errorMessage;
+    errorText.textContent = errorMessage;
     errorPopup.classList.remove('hidden');
     setTimeout(function () {
       errorPopup.classList.add('hidden');
