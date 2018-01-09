@@ -140,6 +140,14 @@ textarea:focus
   font-size: 22px;
 }
 
+.loaded-image
+{
+  max-height: 100px;
+  height: 100%;
+  width: auto;
+  margin: 0 10px 10px 0;
+}
+
 .features
 {
     white-space: nowrap;
@@ -720,6 +728,11 @@ textarea:focus
     min-height: 70px;
 }
 
+.upload label {
+  width: 140px;
+  margin-right: 20px;
+}
+
 .notice__info
 {
     margin-top: 0;
@@ -748,7 +761,9 @@ textarea:focus
 
 .form__photo-container
 {
-    width: 140px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 480px;
 }
 
 .form__element--submit

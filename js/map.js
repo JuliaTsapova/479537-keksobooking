@@ -27,23 +27,18 @@
 
   var filterForm = document.querySelector('.map__filters');
 
-  var closeAdvert = function () {
-    window.card.close();
-    window.pin.close();
-  };
-
-  var addPin = function (fragment, pinData) {
+  var addPin = function (fragment, pinData){
     fragment.appendChild(window.pin.render(pinData, function () {
-      closeAdvert();
-      window.card.open(pinData, closeAdvert);
-    }));
+      window.pin.close();
+      window.card.open(pinData, window.pin.close);
+    }, window.card.close));
   };
 
   var createFragment = function (arr) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < arr.length; i++) {
-      addPin(fragment, arr[i]);
-    }
+    arr.forEach(function (data){
+        addPin(fragment, data);
+    });
     return fragment;
   };
 
@@ -60,30 +55,29 @@
     }, 3000);
   };
 
+
+  var filterListener = function () {
+    window.debounce(function () {
+      window.card.close();
+      var pins = mapPins.querySelectorAll('button[class^="map__pin"]');
+      pins.forEach(function (pin){
+        mapPins.removeChild(pin);
+      });
+      mapPins.appendChild(createFragment(window.filterData(loadedAdverts)));
+    });
+  };
+
   var initMap = function () {
     map.classList.remove('map--faded');
     noticeForm.classList.remove('notice__form--disabled');
     var items = noticeForm.querySelectorAll('fieldset');
-    for (var i = 0; i < items.length; i++) {
-      items[i].removeAttribute('disabled');
-    }
+    items.forEach(function (items){
+      items.removeAttribute('disabled');
+    });
     window.backend.load(onAdvertsLoad, onAdvertsLoadError);
     addressValue.value = 'x: ' + mapPinMain.offsetLeft + ', y:' + (mapPinMain.offsetTop + TranslateYParams.MAIN_PIN);
     mapPinMain.removeEventListener('mouseup', initMap);
-    filterForm.addEventListener('change', function () {
-      window.debounce(function () {
-        var pins = mapPins.querySelectorAll('button[class="map__pin"]');
-        for (var index = 0; index < pins.length; index++) {
-          mapPins.removeChild(pins[index]);
-        }
-        mapPins.appendChild(createFragment(window.filterData(loadedAdverts)));
-      });
-    });
-    document.documentElement.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === ESC_KEYCODE && evt.target.className.indexOf('popup__close') === -1) {
-        closeAdvert();
-      }
-    });
+    filterForm.addEventListener('change', filterListener);
   };
 
   mapPinMain.addEventListener('mouseup', initMap);

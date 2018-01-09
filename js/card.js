@@ -31,16 +31,29 @@
     card.querySelector('.popup__description').textContent = cardData.offer.description;
     card.querySelector('.popup__address').textContent = cardData.offer.address;
     var features = card.querySelector('.popup__features');
-    for (var i = 0; i < cardData.offer.features.length; i++) {
-      features.appendChild(createLi(cardData.offer.features[i]));
-    }
+
+    cardData.offer.features.forEach(function (value){
+      features.appendChild(createLi(value));
+    });
+
     var closeButton = card.querySelector('.popup__close');
-    closeButton.addEventListener('click', action);
-    closeButton.addEventListener('keydown', function (evt) {
+
+    var keyListener = function (evt) {
       if (evt.keyCode === ENTER_KEYCODE) {
+        evt.target.removeEventListener('keydown', keyListener);
+        closeCard();
         action();
       }
-    });
+    };
+    closeButton.addEventListener('keydown', keyListener);
+
+    var clickListener = function (evt){
+      evt.target.removeEventListener('click', clickListener);
+      closeCard();
+      action();
+    };
+    closeButton.addEventListener('click', clickListener);
+
     return card;
   };
 
