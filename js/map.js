@@ -70,7 +70,7 @@
     map.classList.remove('map--faded');
     noticeForm.classList.remove('notice__form--disabled');
     var formItems = noticeForm.querySelectorAll('fieldset');
-    formItems.forEach(function (items) {
+    Array.from(formItems).forEach(function (items) {
       items.removeAttribute('disabled');
     });
     window.backend.load(onAdvertsLoad, onAdvertsLoadError);

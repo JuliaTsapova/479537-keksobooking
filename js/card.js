@@ -2,6 +2,7 @@
 
 (function () {
   var ENTER_KEYCODE = 13;
+  var ESC_KEYCODE = 27;
   var cardTemplate = document.querySelector('#advert-template').content.querySelector('.map__card');
   var map = document.querySelector('.map');
   var filterContainer = document.querySelector('.map__filters-container');
@@ -13,10 +14,14 @@
     return li;
   };
 
+  var onEscKeydown = null;
+
   var closeCard = function () {
     var card = document.querySelector('.popup');
     if (card) {
       card.parentNode.removeChild(card);
+      onEscKeydown && document.removeEventListener('keydown', onEscKeydown);
+      onEscKeydown = null;
     }
   };
 
@@ -53,6 +58,14 @@
       action();
     };
     closeButton.addEventListener('click', clickListener);
+
+    onEscKeydown = function (evt) {
+      if (evt.keyCode === ESC_KEYCODE) {
+        closeCard();
+        action();
+      }
+    };
+    document.addEventListener('keydown', onEscKeydown);
 
     return card;
   };
