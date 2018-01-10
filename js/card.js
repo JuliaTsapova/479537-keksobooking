@@ -20,7 +20,7 @@
     var card = document.querySelector('.popup');
     if (card) {
       card.parentNode.removeChild(card);
-      if(onEscKeydown !== null){
+      if (onEscKeydown !== null) {
         document.removeEventListener('keydown', onEscKeydown);
         onEscKeydown = null;
       }
