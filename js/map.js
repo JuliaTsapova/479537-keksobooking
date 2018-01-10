@@ -69,9 +69,9 @@
   var initMap = function () {
     map.classList.remove('map--faded');
     noticeForm.classList.remove('notice__form--disabled');
-    var items = noticeForm.querySelectorAll('fieldset');
-    items.forEach(function (items) {
-      items.removeAttribute('disabled');
+    var elements = noticeForm.querySelectorAll('fieldset');
+    elements.forEach(function (elements) {
+      elements.removeAttribute('disabled');
     });
     window.backend.load(onAdvertsLoad, onAdvertsLoadError);
     addressValue.value = 'x: ' + mapPinMain.offsetLeft + ', y:' + (mapPinMain.offsetTop + TranslateYParams.MAIN_PIN);
