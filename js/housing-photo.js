@@ -5,8 +5,6 @@
 
   var fileChooser = document.querySelector('#images');
   var photoBox = document.querySelector('.form__photo-container');
-  var photos = document.querySelectorAll('.loaded-image');
-  var draggedItem = null;
   var dropZone = document.querySelector('label[for=images]');
   var draggedItem = null;
 
@@ -60,18 +58,16 @@
   });
 
   dropZone.addEventListener('dragover', function (evt) {
-      evt.stopPropagation();
-      evt.preventDefault();
-      evt.dataTransfer.dropEffect = 'copy';
-    },
-    false);
+    evt.stopPropagation();
+    evt.preventDefault();
+    evt.dataTransfer.dropEffect = 'copy';
+  }, false);
 
   dropZone.addEventListener('drop', function (evt) {
-      evt.stopPropagation();
-      evt.preventDefault();
-      var files = evt.dataTransfer.files;
-      var file = files[0];
-      addElement(file);
-    },
-    false);
+    evt.stopPropagation();
+    evt.preventDefault();
+    var files = evt.dataTransfer.files;
+    var file = files[0];
+    addElement(file);
+  }, false);
 })();

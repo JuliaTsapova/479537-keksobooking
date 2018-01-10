@@ -37,7 +37,7 @@
       closeCard();
       openCard();
       openPin(pin);
-      if(!isEscKeyDownListenerSet){
+      if (!isEscKeyDownListenerSet) {
         document.addEventListener('keydown', onEscKeydown);
         isEscKeyDownListenerSet = true;
       }
@@ -48,7 +48,7 @@
         closeCard();
         openCard();
         openPin(pin);
-        if(!isEscKeyDownListenerSet){
+        if (!isEscKeyDownListenerSet) {
           document.addEventListener('keydown', onEscKeydown);
           isEscKeyDownListenerSet = true;
         }

@@ -28,18 +28,18 @@
   });
 
   dropZone.addEventListener('dragover', function (evt) {
-      evt.stopPropagation();
-      evt.preventDefault();
-      evt.dataTransfer.dropEffect = 'copy';
-    },
-    false);
+    evt.stopPropagation();
+    evt.preventDefault();
+    evt.dataTransfer.dropEffect = 'copy';
+  },
+  false);
 
   dropZone.addEventListener('drop', function (evt) {
-      evt.stopPropagation();
-      evt.preventDefault();
-      var files = evt.dataTransfer.files;
-      var file = files[0];
-      addAvatar(file);
-    },
-    false);
+    evt.stopPropagation();
+    evt.preventDefault();
+    var files = evt.dataTransfer.files;
+    var file = files[0];
+    addAvatar(file);
+  },
+  false);
 })();

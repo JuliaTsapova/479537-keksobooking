@@ -32,7 +32,7 @@
     card.querySelector('.popup__address').textContent = cardData.offer.address;
     var features = card.querySelector('.popup__features');
 
-    cardData.offer.features.forEach(function (value){
+    cardData.offer.features.forEach(function (value) {
       features.appendChild(createLi(value));
     });
 
@@ -47,7 +47,7 @@
     };
     closeButton.addEventListener('keydown', onEnterKeydown);
 
-    var clickListener = function (evt){
+    var clickListener = function (evt) {
       evt.target.removeEventListener('click', clickListener);
       closeCard();
       action();

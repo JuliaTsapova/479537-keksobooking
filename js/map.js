@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
   var errorPopup = document.querySelector('.error-popup');
   var errorText = errorPopup.querySelector('.error-message');
 
@@ -27,7 +26,7 @@
 
   var filterForm = document.querySelector('.map__filters');
 
-  var addPin = function (fragment, pinData){
+  var addPin = function (fragment, pinData) {
     fragment.appendChild(window.pin.render(pinData, function () {
       window.pin.close();
       window.card.open(pinData, window.pin.close);
@@ -36,8 +35,8 @@
 
   var createFragment = function (arr) {
     var fragment = document.createDocumentFragment();
-    arr.forEach(function (data){
-        addPin(fragment, data);
+    arr.forEach(function (data) {
+      addPin(fragment, data);
     });
     return fragment;
   };
@@ -60,7 +59,7 @@
     window.debounce(function () {
       window.card.close();
       var pins = mapPins.querySelectorAll('button[class^="map__pin"]');
-      pins.forEach(function (pin){
+      pins.forEach(function (pin) {
         mapPins.removeChild(pin);
       });
       mapPins.appendChild(createFragment(window.filterData(loadedAdverts)));
@@ -71,7 +70,7 @@
     map.classList.remove('map--faded');
     noticeForm.classList.remove('notice__form--disabled');
     var items = noticeForm.querySelectorAll('fieldset');
-    items.forEach(function (items){
+    items.forEach(function (items) {
       items.removeAttribute('disabled');
     });
     window.backend.load(onAdvertsLoad, onAdvertsLoadError);
