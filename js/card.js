@@ -38,14 +38,14 @@
 
     var closeButton = card.querySelector('.popup__close');
 
-    var keyListener = function (evt) {
+    var onEnterKeydown = function (evt) {
       if (evt.keyCode === ENTER_KEYCODE) {
-        evt.target.removeEventListener('keydown', keyListener);
+        evt.target.removeEventListener('keydown', onEnterKeydown);
         closeCard();
         action();
       }
     };
-    closeButton.addEventListener('keydown', keyListener);
+    closeButton.addEventListener('keydown', onEnterKeydown);
 
     var clickListener = function (evt){
       evt.target.removeEventListener('click', clickListener);

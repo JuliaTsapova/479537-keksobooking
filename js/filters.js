@@ -47,9 +47,7 @@
     var features = filterForm.querySelectorAll('fieldset input[type="checkbox"]:checked');
     var result = true;
     features.forEach(function (element){
-        if (!offerFeatures.includes(element.value)) {
-          result = false;
-        }
+      result = !offerFeatures.includes(element.value);
     });
     return result;
   };

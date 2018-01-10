@@ -29,7 +29,26 @@
         newImage.src = reader.result;
         newImage.classList.add('loaded-image');
         newImage.draggable = 'true';
-        return newImage;
+        newImage.addEventListener('dragstart', function (evt) {
+          if (evt.target.tagName.toLowerCase() === 'img') {
+            draggedItem = evt.target;
+            evt.dataTransfer.setData('text/plain', evt.target.alt);
+          }
+        });
+
+        newImage.addEventListener('dragover', function (evt) {
+          evt.preventDefault();
+          return false;
+        });
+
+        newImage.addEventListener('drop', function (evt) {
+          var node = evt.target;
+          if (draggedItem === node.previousSibling) {
+            node = node.nextSibling;
+          }
+          photoBox.insertBefore(draggedItem, node);
+          evt.preventDefault();
+        });
       });
       reader.readAsDataURL(file);
     }
@@ -39,8 +58,6 @@
     var file = fileChooser.files[0];
     addElement(file);
   });
-
-  console.log(photos);
 
   dropZone.addEventListener('dragover', function (evt) {
       evt.stopPropagation();
@@ -57,24 +74,4 @@
       addElement(file);
     },
     false);
-
-  for (var i = 0; i < photos.length; i++) {
-
-    photos[i].addEventListener('dragstart', function (evt) {
-      if (evt.target.tagName.toLowerCase() === 'img') {
-        draggedItem = evt.target;
-        evt.dataTransfer.setData('text/plain', evt.target.alt);
-      }
-    });
-
-    photos[i].addEventListener('dragover', function (evt) {
-      evt.preventDefault();
-      return false;
-    });
-
-    photos[i].addEventListener('drop', function (evt) {
-      evt.target.insertBefore(draggedItem);
-      evt.preventDefault();
-    });
-  }
 })();
