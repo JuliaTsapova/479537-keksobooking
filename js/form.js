@@ -74,10 +74,9 @@
     noticeForm.reset();
     checkRoomsAndGuests(roomsValue.value);
     typeValue.querySelectorAll('option')[0].selected = true;
-    priceValue.min = 1000;
     addressValue.value = 'x: ' + mapPinMain.offsetLeft + ', y:' + (mapPinMain.offsetTop + TranslateYParams.MAIN_PIN);
     avatarPreview.src = 'img/muffin.png';
-
+    syncValueWithMin(typeValue, priceValue, Object.keys(typeAndPrice), Object.values(typeAndPrice));
     var images = photoBox.querySelectorAll('.loaded-image');
     Array.from(images).forEach(function (img) {
       photoBox.removeChild(img);
