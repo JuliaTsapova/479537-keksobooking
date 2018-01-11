@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var ERROR_TIMEOUT = 3000;
+
   var errorPopup = document.querySelector('.error-popup');
   var errorText = errorPopup.querySelector('.error-message');
 
@@ -48,12 +50,11 @@
     errorPopup.classList.remove('hidden');
     setTimeout(function () {
       errorPopup.classList.add('hidden');
-    }, 3000);
+    }, ERROR_TIMEOUT);
   };
 
   var onFilterChange = function () {
     window.debounce(function () {
-      window.card.close();
       var pins = mapPins.querySelectorAll('button[class^="map__pin"]');
       Array.from(pins).forEach(function (pin) {
         mapPins.removeChild(pin);

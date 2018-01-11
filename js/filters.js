@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-
   var ADVERTS_LIMIT = 5;
 
   var HousingPriceValue = {
