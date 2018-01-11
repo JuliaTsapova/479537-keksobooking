@@ -55,12 +55,12 @@
 
   var onFilterChange = function () {
     window.debounce(function () {
-      window.card.close();
       var pins = mapPins.querySelectorAll('button.map__pin:not(.map__pin--main)');
       Array.from(pins).forEach(function (pin) {
         mapPins.removeChild(pin);
       });
       mapPins.appendChild(createFragment(window.filterData(loadedAdverts)));
+      window.card.close();
     });
   };
 
