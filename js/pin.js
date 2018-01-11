@@ -21,7 +21,7 @@
     pin.querySelector('img').src = pinData.author.avatar;
 
     pin.addEventListener('click', function () {
-      window.openCard(pinData);
+      window.card.open(pinData);
       openPin(pin);
     });
 

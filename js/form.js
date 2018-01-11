@@ -2,6 +2,7 @@
 
 (function () {
   var TIME_VALUES = ['12:00', '13:00', '14:00'];
+  var ERROR_TIMEOUT = 3000;
 
   var TranslateYParams = {
     PIN: 40,
@@ -35,7 +36,6 @@
   var mapPinMain = document.querySelector('.map__pin--main');
   var avatarPreview = document.querySelector('.notice__preview > img');
   var photoBox = document.querySelector('.form__photo-container');
-
 
   window.setAddress = function (x, y) {
     addressValue.value = 'x: ' + x + ', y: ' + y;
@@ -93,7 +93,7 @@
     errorPopup.classList.remove('hidden');
     setTimeout(function () {
       errorPopup.classList.add('hidden');
-    }, 3000);
+    }, ERROR_TIMEOUT);
   };
 
   noticeForm.addEventListener('submit', function (evt) {
