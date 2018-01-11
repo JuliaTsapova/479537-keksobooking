@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var ENTER_KEYCODE = 13;
   var ESC_KEYCODE = 27;
   var cardTemplate = document.querySelector('#advert-template').content.querySelector('.map__card');
   var map = document.querySelector('.map');
@@ -14,7 +13,7 @@
     return li;
   };
 
-  var onEscKeydown = onEscKeydown = function (evt) {
+  var onEscKeydown = function (evt) {
     if (evt.keyCode === ESC_KEYCODE) {
       closeCard();
     }
@@ -47,11 +46,11 @@
 
     var closeButton = card.querySelector('.popup__close');
 
-    var clickListener = function (evt) {
-      evt.target.removeEventListener('click', clickListener);
+    var onCloseButtonClick = function (evt) {
+      evt.target.removeEventListener('click', onCloseButtonClick);
       closeCard();
     };
-    closeButton.addEventListener('click', clickListener);
+    closeButton.addEventListener('click', onCloseButtonClick);
 
     document.addEventListener('keydown', onEscKeydown);
 

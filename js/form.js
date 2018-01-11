@@ -59,7 +59,7 @@
 
   var checkRoomsAndGuests = function (value) {
     var options = guestsValue.querySelectorAll('option');
-    options.forEach(function (element) {
+    Array.from(options).forEach(function (element) {
       element.disabled = !RoomsAndGuests[value].includes(element.value);
     });
     guestsValue.value = RoomsAndGuests[value][0];
@@ -79,7 +79,7 @@
     avatarPreview.src = 'img/muffin.png';
 
     var images = photoBox.querySelectorAll('.loaded-image');
-    images.forEach(function (img) {
+    Array.from(images).forEach(function (img) {
       photoBox.removeChild(img);
     });
   };

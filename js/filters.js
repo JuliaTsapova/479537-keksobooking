@@ -46,7 +46,7 @@
   var filterFeatures = function (offerFeatures) {
     var features = filterForm.querySelectorAll('fieldset input[type="checkbox"]:checked');
     var result = true;
-    features.forEach(function (element) {
+    Array.from(features).forEach(function (element) {
       result = !offerFeatures.includes(element.value);
     });
     return result;

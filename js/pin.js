@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var ENTER_KEYCODE = 13;
   var pinTemplate = document.querySelector('#advert-template').content.querySelector('.map__pin');
 
   var openPin = function (pin) {

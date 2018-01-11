@@ -51,12 +51,11 @@
     }, 3000);
   };
 
-
-  var filterListener = function () {
+  var onFilterChange = function () {
     window.debounce(function () {
       window.card.close();
       var pins = mapPins.querySelectorAll('button[class^="map__pin"]');
-      pins.forEach(function (pin) {
+      Array.from(pins).forEach(function (pin) {
         mapPins.removeChild(pin);
       });
       mapPins.appendChild(createFragment(window.filterData(loadedAdverts)));
@@ -73,7 +72,7 @@
     window.backend.load(onAdvertsLoad, onAdvertsLoadError);
     addressValue.value = 'x: ' + mapPinMain.offsetLeft + ', y:' + (mapPinMain.offsetTop + TranslateYParams.MAIN_PIN);
     mapPinMain.removeEventListener('mouseup', initMap);
-    filterForm.addEventListener('change', filterListener);
+    filterForm.addEventListener('change', onFilterChange);
   };
 
   mapPinMain.addEventListener('mouseup', initMap);
