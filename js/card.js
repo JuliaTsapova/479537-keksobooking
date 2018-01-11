@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  var ENTER_KEYCODE = 13;
+  var ESC_KEYCODE = 27;
   var cardTemplate = document.querySelector('#advert-template').content.querySelector('.map__card');
   var map = document.querySelector('.map');
   var filterContainer = document.querySelector('.map__filters-container');
@@ -13,14 +13,22 @@
     return li;
   };
 
+  var onEscKeydown = function (evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      closeCard();
+    }
+  };
+
   var closeCard = function () {
     var card = document.querySelector('.popup');
     if (card) {
       card.parentNode.removeChild(card);
+      document.removeEventListener('keydown', onEscKeydown);
+      window.pin.close();
     }
   };
 
-  var renderCard = function (cardData, action) {
+  var renderCard = function (cardData) {
     var card = cardTemplate.cloneNode(true);
     card.querySelector('.popup__avatar').src = cardData.author.avatar;
     card.querySelector('h3').textContent = cardData.offer.title;
@@ -31,25 +39,28 @@
     card.querySelector('.popup__description').textContent = cardData.offer.description;
     card.querySelector('.popup__address').textContent = cardData.offer.address;
     var features = card.querySelector('.popup__features');
-    for (var i = 0; i < cardData.offer.features.length; i++) {
-      features.appendChild(createLi(cardData.offer.features[i]));
-    }
-    var closeButton = card.querySelector('.popup__close');
-    closeButton.addEventListener('click', action);
-    closeButton.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === ENTER_KEYCODE) {
-        action();
-      }
+
+    cardData.offer.features.forEach(function (value) {
+      features.appendChild(createLi(value));
     });
+
+    var closeButton = card.querySelector('.popup__close');
+
+    var onCloseButtonClick = function (evt) {
+      evt.target.removeEventListener('click', onCloseButtonClick);
+      closeCard();
+    };
+    closeButton.addEventListener('click', onCloseButtonClick);
+
+    document.addEventListener('keydown', onEscKeydown);
+
     return card;
   };
 
-  var openCard = function (cardData, action) {
-    map.insertBefore(renderCard(cardData, action), filterContainer);
+  var openCard = function (cardData) {
+    closeCard();
+    map.insertBefore(renderCard(cardData), filterContainer);
   };
 
-  window.card = {
-    open: openCard,
-    close: closeCard,
-  };
+  window.openCard = openCard;
 })();

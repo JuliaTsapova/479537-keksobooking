@@ -33,6 +33,9 @@
   var errorPopup = document.querySelector('.error-popup');
   var errorText = errorPopup.querySelector('.error-message');
   var mapPinMain = document.querySelector('.map__pin--main');
+  var avatarPreview = document.querySelector('.notice__preview > img');
+  var photoBox = document.querySelector('.form__photo-container');
+
 
   window.setAddress = function (x, y) {
     addressValue.value = 'x: ' + x + ', y: ' + y;
@@ -56,9 +59,9 @@
 
   var checkRoomsAndGuests = function (value) {
     var options = guestsValue.querySelectorAll('option');
-    for (var i = 0; i < options.length; i++) {
-      options[i].disabled = !RoomsAndGuests[value].includes(options[i].value);
-    }
+    Array.from(options).forEach(function (element) {
+      element.disabled = !RoomsAndGuests[value].includes(element.value);
+    });
     guestsValue.value = RoomsAndGuests[value][0];
   };
 
@@ -71,8 +74,13 @@
     noticeForm.reset();
     checkRoomsAndGuests(roomsValue.value);
     typeValue.querySelectorAll('option')[0].selected = true;
-    priceValue.min = 0;
     addressValue.value = 'x: ' + mapPinMain.offsetLeft + ', y:' + (mapPinMain.offsetTop + TranslateYParams.MAIN_PIN);
+    avatarPreview.src = 'img/muffin.png';
+    syncValueWithMin(typeValue, priceValue, Object.keys(typeAndPrice), Object.values(typeAndPrice));
+    var images = photoBox.querySelectorAll('.loaded-image');
+    Array.from(images).forEach(function (img) {
+      photoBox.removeChild(img);
+    });
   };
 
   var onSuccess = function () {
@@ -89,6 +97,7 @@
   };
 
   noticeForm.addEventListener('submit', function (evt) {
+
     window.backend.upload(new FormData(noticeForm), onSuccess, onError);
     evt.preventDefault();
   });

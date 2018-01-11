@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
   var errorPopup = document.querySelector('.error-popup');
   var errorText = errorPopup.querySelector('.error-message');
 
@@ -27,23 +26,15 @@
 
   var filterForm = document.querySelector('.map__filters');
 
-  var closeAdvert = function () {
-    window.card.close();
-    window.pin.close();
-  };
-
   var addPin = function (fragment, pinData) {
-    fragment.appendChild(window.pin.render(pinData, function () {
-      closeAdvert();
-      window.card.open(pinData, closeAdvert);
-    }));
+    fragment.appendChild(window.pin.render(pinData));
   };
 
   var createFragment = function (arr) {
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < arr.length; i++) {
-      addPin(fragment, arr[i]);
-    }
+    arr.forEach(function (data) {
+      addPin(fragment, data);
+    });
     return fragment;
   };
 
@@ -60,30 +51,28 @@
     }, 3000);
   };
 
+  var onFilterChange = function () {
+    window.debounce(function () {
+      window.card.close();
+      var pins = mapPins.querySelectorAll('button[class^="map__pin"]');
+      Array.from(pins).forEach(function (pin) {
+        mapPins.removeChild(pin);
+      });
+      mapPins.appendChild(createFragment(window.filterData(loadedAdverts)));
+    });
+  };
+
   var initMap = function () {
     map.classList.remove('map--faded');
     noticeForm.classList.remove('notice__form--disabled');
-    var items = noticeForm.querySelectorAll('fieldset');
-    for (var i = 0; i < items.length; i++) {
-      items[i].removeAttribute('disabled');
-    }
+    var formItems = noticeForm.querySelectorAll('fieldset');
+    Array.from(formItems).forEach(function (items) {
+      items.removeAttribute('disabled');
+    });
     window.backend.load(onAdvertsLoad, onAdvertsLoadError);
     addressValue.value = 'x: ' + mapPinMain.offsetLeft + ', y:' + (mapPinMain.offsetTop + TranslateYParams.MAIN_PIN);
     mapPinMain.removeEventListener('mouseup', initMap);
-    filterForm.addEventListener('change', function () {
-      window.debounce(function () {
-        var pins = mapPins.querySelectorAll('button[class="map__pin"]');
-        for (var index = 0; index < pins.length; index++) {
-          mapPins.removeChild(pins[index]);
-        }
-        mapPins.appendChild(createFragment(window.filterData(loadedAdverts)));
-      });
-    });
-    document.documentElement.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === ESC_KEYCODE && evt.target.className.indexOf('popup__close') === -1) {
-        closeAdvert();
-      }
-    });
+    filterForm.addEventListener('change', onFilterChange);
   };
 
   mapPinMain.addEventListener('mouseup', initMap);
