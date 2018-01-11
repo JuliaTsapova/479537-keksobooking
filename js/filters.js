@@ -44,11 +44,9 @@
 
   var filterFeatures = function (offerFeatures) {
     var features = filterForm.querySelectorAll('fieldset input[type="checkbox"]:checked');
-    var result = true;
-    Array.from(features).forEach(function (element) {
-      result = !offerFeatures.includes(element.value);
+    return Array.from(features).every(function (element) {
+      return offerFeatures.includes(element.value);
     });
-    return result;
   };
 
   window.filterData = function (pins) {
@@ -63,7 +61,6 @@
     if (result.length > ADVERTS_LIMIT) {
       return result.slice(0, ADVERTS_LIMIT);
     }
-
     return result;
   };
 

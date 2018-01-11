@@ -55,7 +55,8 @@
 
   var onFilterChange = function () {
     window.debounce(function () {
-      var pins = mapPins.querySelectorAll('button[class^="map__pin"]');
+      window.card.close();
+      var pins = mapPins.querySelectorAll('button.map__pin:not(.map__pin--main)');
       Array.from(pins).forEach(function (pin) {
         mapPins.removeChild(pin);
       });
