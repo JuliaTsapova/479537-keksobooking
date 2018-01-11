@@ -14,20 +14,22 @@
     return li;
   };
 
-  var onEscKeydown = null;
+  var onEscKeydown = onEscKeydown = function (evt) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      closeCard();
+    }
+  };
 
   var closeCard = function () {
     var card = document.querySelector('.popup');
     if (card) {
       card.parentNode.removeChild(card);
-      if (onEscKeydown !== null) {
-        document.removeEventListener('keydown', onEscKeydown);
-        onEscKeydown = null;
-      }
+      document.removeEventListener('keydown', onEscKeydown);
+      window.pin.close();
     }
   };
 
-  var renderCard = function (cardData, action) {
+  var renderCard = function (cardData) {
     var card = cardTemplate.cloneNode(true);
     card.querySelector('.popup__avatar').src = cardData.author.avatar;
     card.querySelector('h3').textContent = cardData.offer.title;
@@ -45,39 +47,21 @@
 
     var closeButton = card.querySelector('.popup__close');
 
-    var onEnterKeydown = function (evt) {
-      if (evt.keyCode === ENTER_KEYCODE) {
-        evt.target.removeEventListener('keydown', onEnterKeydown);
-        closeCard();
-        action();
-      }
-    };
-    closeButton.addEventListener('keydown', onEnterKeydown);
-
     var clickListener = function (evt) {
       evt.target.removeEventListener('click', clickListener);
       closeCard();
-      action();
     };
     closeButton.addEventListener('click', clickListener);
 
-    onEscKeydown = function (evt) {
-      if (evt.keyCode === ESC_KEYCODE) {
-        closeCard();
-        action();
-      }
-    };
     document.addEventListener('keydown', onEscKeydown);
 
     return card;
   };
 
-  var openCard = function (cardData, action) {
-    map.insertBefore(renderCard(cardData, action), filterContainer);
+  var openCard = function (cardData) {
+    closeCard();
+    map.insertBefore(renderCard(cardData), filterContainer);
   };
 
-  window.card = {
-    open: openCard,
-    close: closeCard,
-  };
+  window.openCard = openCard;
 })();

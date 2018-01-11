@@ -15,24 +15,15 @@
     }
   };
 
-  var renderPin = function (pinData, openCard, closeCard) {
+  var renderPin = function (pinData) {
     var pin = pinTemplate.cloneNode(true);
     pin.style.setProperty('left', pinData.location.x + 'px');
     pin.style.setProperty('top', pinData.location.y + 'px');
     pin.querySelector('img').src = pinData.author.avatar;
 
     pin.addEventListener('click', function () {
-      closeCard();
-      openCard();
+      window.openCard(pinData);
       openPin(pin);
-    });
-
-    pin.addEventListener('keydown', function (evt) {
-      if (evt.keyCode === ENTER_KEYCODE) {
-        closeCard();
-        openCard();
-        openPin(pin);
-      }
     });
 
     return pin;

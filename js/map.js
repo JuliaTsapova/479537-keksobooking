@@ -27,10 +27,7 @@
   var filterForm = document.querySelector('.map__filters');
 
   var addPin = function (fragment, pinData) {
-    fragment.appendChild(window.pin.render(pinData, function () {
-      window.pin.close();
-      window.card.open(pinData, window.pin.close);
-    }, window.card.close));
+    fragment.appendChild(window.pin.render(pinData));
   };
 
   var createFragment = function (arr) {
