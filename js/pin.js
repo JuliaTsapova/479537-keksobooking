@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var PIN_OFFSET_Y = 40;
+
   var pinTemplate = document.querySelector('#advert-template').content.querySelector('.map__pin');
 
   var openPin = function (pin) {
@@ -17,7 +19,7 @@
   var renderPin = function (pinData) {
     var pin = pinTemplate.cloneNode(true);
     pin.style.setProperty('left', pinData.location.x + 'px');
-    pin.style.setProperty('top', pinData.location.y + 'px');
+    pin.style.setProperty('top', (pinData.location.y - PIN_OFFSET_Y) + 'px');
     pin.querySelector('img').src = pinData.author.avatar;
 
     pin.addEventListener('click', function () {

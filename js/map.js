@@ -2,14 +2,10 @@
 
 (function () {
   var ERROR_TIMEOUT = 3000;
+  var MAIN_PIN_OFFSET_Y = 49;
 
   var errorPopup = document.querySelector('.error-popup');
   var errorText = errorPopup.querySelector('.error-message');
-
-  var TranslateYParams = {
-    PIN: 40,
-    MAIN_PIN: 49
-  };
 
   var MainPinLimits = {
     TOP: 100,
@@ -72,7 +68,7 @@
       items.removeAttribute('disabled');
     });
     window.backend.load(onAdvertsLoad, onAdvertsLoadError);
-    addressValue.value = 'x: ' + mapPinMain.offsetLeft + ', y:' + (mapPinMain.offsetTop + TranslateYParams.MAIN_PIN);
+    addressValue.value = 'x: ' + mapPinMain.offsetLeft + ', y:' + (mapPinMain.offsetTop + MAIN_PIN_OFFSET_Y);
     mapPinMain.removeEventListener('mouseup', initMap);
     filterForm.addEventListener('change', onFilterChange);
   };
@@ -105,11 +101,11 @@
         y: mapPinMain.offsetTop - shift.y
       };
 
-      if (currentCoords.y < MainPinLimits.TOP - TranslateYParams.MAIN_PIN) {
-        currentCoords.y = MainPinLimits.TOP - TranslateYParams.MAIN_PIN;
+      if (currentCoords.y < MainPinLimits.TOP - MAIN_PIN_OFFSET_Y) {
+        currentCoords.y = MainPinLimits.TOP - MAIN_PIN_OFFSET_Y;
       }
-      if (currentCoords.y > MainPinLimits.BOTTOM - TranslateYParams.MAIN_PIN) {
-        currentCoords.y = MainPinLimits.BOTTOM - TranslateYParams.MAIN_PIN;
+      if (currentCoords.y > MainPinLimits.BOTTOM - MAIN_PIN_OFFSET_Y) {
+        currentCoords.y = MainPinLimits.BOTTOM - MAIN_PIN_OFFSET_Y;
       }
       if (currentCoords.x < MainPinLimits.LEFT) {
         currentCoords.x = MainPinLimits.LEFT;
@@ -121,7 +117,7 @@
       mapPinMain.style.top = currentCoords.y + 'px';
       mapPinMain.style.left = currentCoords.x + 'px';
 
-      window.setAddress(currentCoords.x, currentCoords.y + TranslateYParams.MAIN_PIN);
+      window.setAddress(currentCoords.x, currentCoords.y + MAIN_PIN_OFFSET_Y);
     };
 
     var onMouseUp = function (upEvt) {
