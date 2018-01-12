@@ -23,20 +23,17 @@
   };
 
   var filterType = function (value, filterValue) {
-    if (filterValue === 'any') {
-      return true;
-    }
-    return value === filterValue;
+    return filterValue === 'any' || value === filterValue;
   };
 
   var filterPrice = function (value, filterValue) {
     switch (filterValue) {
       case 'middle':
-        return (HousingPriceValue.LOW < value && value < HousingPriceValue.HIGH);
+        return (HousingPriceValue.LOW <= value && value < HousingPriceValue.HIGH);
       case 'low':
         return (value < HousingPriceValue.LOW);
       case 'high':
-        return (value > HousingPriceValue.HIGH);
+        return (value >= HousingPriceValue.HIGH);
       default:
         return true;
     }
